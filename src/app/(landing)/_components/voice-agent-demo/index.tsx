@@ -7,28 +7,33 @@ import * as variants from '@/lib/motion-variants';
 interface IAgent {
   img: string;
   name: string;
+  country: string;
   music: string;
 }
 
 const agentsData: IAgent[] = [
   {
     img: '/assets/img/character-1.png',
-    name: 'Financial Industry',
+    name: 'Ben',
+    country: 'Melbourne, Australia',
     music: '/assets/music/agent-1.mp3',
   },
   {
     img: '/assets/img/character-4.png',
-    name: 'Financial Industry',
+    name: 'Jazmin',
+    country: 'Paris, France',
     music: '/assets/music/agent-1.mp3',
   },
   {
     img: '/assets/img/character-2.png',
-    name: 'Financial Industry',
+    name: 'Maria',
+    country: 'London, United Kingdom',
     music: '/assets/music/agent-1.mp3',
   },
   {
     img: '/assets/img/character-3.png',
-    name: 'Financial Industry',
+    name: 'Peter',
+    country: 'los angeles, California',
     music: '/assets/music/agent-1.mp3',
   },
 ];
@@ -41,7 +46,7 @@ export default function VoiceAgentsDemo({
   return (
     <div
       className={cn(
-        'my-14 w-full bg-linear-48 from-[#5cd9ba] to-[#81b5e9] px-8 py-14 sm:my-18 md:my-24',
+        'my-14 w-full bg-linear-48 from-[#5cd9ba] to-[#81b5e9] px-8 py-14 sm:my-18 md:my-32 md:py-20 lg:my-44 lg:py-30 xl:my-52',
         className,
       )}
     >
@@ -68,7 +73,7 @@ export default function VoiceAgentsDemo({
             your hiring process!
           </motion.p>
         </div>
-        <div className="mt-14">
+        <div className="mt-14 lg:mt-20">
           <motion.ul
             variants={variants.staggerContainer}
             initial="start"
@@ -80,7 +85,7 @@ export default function VoiceAgentsDemo({
               <motion.li
                 variants={variants.fadeInUp}
                 key={idx}
-                className="min-w-[200px]"
+                className="min-w-[200px] md:min-w-[240px] lg:min-w-[280px]"
               >
                 <AgentsCard item={agent} />
               </motion.li>
@@ -93,22 +98,22 @@ export default function VoiceAgentsDemo({
 }
 
 function AgentsCard({ item }: { item: IAgent }) {
-  const { img, name } = item;
+  const { img, name, country } = item;
   return (
-    <div className="bg-clrBlackPearl text-clrText font-nunito w-full space-y-2 rounded-md p-6 text-center">
+    <div className="bg-clrBlackPearl text-clrText font-nunito w-full rounded-md p-4 text-center">
       <div className="">
         <Image
           loading="lazy"
-          className="mx-auto"
+          className="mx-auto size-[200px] md:size-[240px]"
           src={img}
           width={180}
           height={180}
           alt={`agent-${name}`}
         />
       </div>
-      <h3 className="text-lg font-semibold">{name}</h3>
-      <p className="text-sm font-light">Play Demo</p>
-      <button className="mx-auto block h-8 w-8 cursor-pointer">
+      <h3 className="mt-1 text-lg font-semibold">{name}</h3>
+      <p className="text-xs font-light opacity-60">{country}</p>
+      <button className="mx-auto mt-4 mb-2 block h-8 w-8 cursor-pointer">
         <Image
           className=""
           src={'/assets/svg/play-icon.svg'}
