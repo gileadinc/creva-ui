@@ -37,7 +37,10 @@ export default function Testimonals({
   return (
     <div
       id={'testimonials'}
-      className={cn('py-14 sm:py-18 md:py-24', className)}
+      className={cn(
+        'py-14 sm:py-18 md:py-24 md:pt-36 lg:pt-40 xl:pt-52',
+        className,
+      )}
     >
       <div className="container mx-auto">
         <motion.h1
@@ -61,7 +64,7 @@ export default function Testimonals({
           businesses like yours.
         </motion.p>
       </div>
-      <div className="relative container mx-auto mt-14 max-w-7xl overflow-hidden py-8 xl:px-[1%]">
+      <div className="relative container mx-auto mt-14 overflow-hidden py-8 xl:px-[1%]">
         {/* Gradient edge masks */}
         <div className="from-clrBlackPearl via-clrBlackPearl/70 pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r to-transparent" />
         <div className="from-clrBlackPearl via-clrBlackPearl/70 pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l to-transparent" />

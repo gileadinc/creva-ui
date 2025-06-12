@@ -53,7 +53,7 @@ export default function Faq({
     <div
       id="faq"
       className={cn(
-        'mx-auto max-w-4xl px-4 pt-4 pb-12 sm:pt-8 md:pt-12',
+        'mx-auto max-w-4xl px-4 pt-4 pb-12 sm:pt-8 md:pt-24 lg:pb-20',
         className,
       )}
     >

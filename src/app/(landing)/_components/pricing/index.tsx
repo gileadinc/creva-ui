@@ -85,7 +85,10 @@ export default function Pricing({
   className?: React.CSSProperties | ClassValue | string;
 }) {
   return (
-    <div id="pricing" className={cn('py-14 sm:py-18 md:py-24', className)}>
+    <div
+      id="pricing"
+      className={cn('py-14 sm:py-18 md:py-24 md:pt-36 lg:pt-40', className)}
+    >
       <div className="container mx-auto">
         <motion.h1
           variants={variants.fadeInUp}
@@ -107,7 +110,7 @@ export default function Pricing({
           needs and budget.
         </motion.p>
       </div>
-      <div className="relative mt-8 py-8 sm:mt-10 xl:mt-30">
+      <div className="relative mt-8 py-8 sm:mt-10 lg:mt-20 xl:mt-40">
         <motion.ul
           variants={variants.staggerContainer}
           initial="start"
