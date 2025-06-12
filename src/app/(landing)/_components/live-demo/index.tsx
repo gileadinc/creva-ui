@@ -13,7 +13,7 @@ export default function LiveDemo({
   className?: React.CSSProperties | ClassValue | string;
 }) {
   return (
-    <div className={cn('py-14 sm:py-18 md:py-24', className)}>
+    <div className={cn('py-14 sm:py-30 md:pt-52 lg:pt-64', className)}>
       <div className="container mx-auto">
         <motion.h1
           variants={variants.fadeInUp}
@@ -35,8 +35,8 @@ export default function LiveDemo({
           interactive our AI Voice Assistant is
         </motion.p>
       </div>
-      <div className="relative z-20 my-10 h-[250px] overflow-hidden sm:my-14 xl:h-[300px]">
-        <div className="absolute inset-0 -z-10">
+      <div className="relative z-20 my-10 h-[250px] overflow-hidden sm:h-[280px] md:h-[340px] lg:h-fit">
+        {/* <div className="absolute inset-0 -z-10">
           <Image
             className="size-full object-cover opacity-20"
             src={'/assets/svg/track-vector.svg'}
@@ -44,7 +44,14 @@ export default function LiveDemo({
             width={100}
             height={100}
           />
-        </div>
+        </div> */}
+        <Image
+          className="absolute -z-10 size-full object-cover opacity-50 lg:static"
+          src={'/assets/svg/track-vector.svg'}
+          alt="track"
+          width={100}
+          height={100}
+        />
       </div>
       <div className="container mx-auto mt-8 flex justify-center">
         <motion.button
