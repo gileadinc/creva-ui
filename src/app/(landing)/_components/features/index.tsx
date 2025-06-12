@@ -214,7 +214,7 @@ export default function Features({
 
 function FeatureCard({ item }: { item: IFeature }) {
   const { img, title, description, detailData } = item;
-  console.log({ detailData });
+
   return (
     <div className="bg-clrBlackPearl group relative h-full cursor-pointer rounded-xl p-6">
       <div className="flex flex-col items-center gap-4 opacity-100 transition-all duration-500 ease-linear group-hover:opacity-0">
