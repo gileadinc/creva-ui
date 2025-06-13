@@ -27,7 +27,7 @@ export default function Partners({
             <div className="absolute top-0 left-1/2 h-24 w-1/2 rounded-[300px] bg-[#3c91e6]" />
           </div>
         </div>
-        <div className="bg-clrBlackPearl z-10 py-8">
+        <div className="bg-clrBlackPearl z-10 py-10">
           <div className="container mx-auto w-full">
             <motion.ul
               variants={variants.staggerContainer}
@@ -40,7 +40,7 @@ export default function Partners({
                 <motion.li
                   key={idx}
                   variants={variants.fadeInUp}
-                  className="block h-[48px] w-fit"
+                  className="block h-[32px] w-fit"
                 >
                   <Image
                     className="size-full object-contain opacity-40"
