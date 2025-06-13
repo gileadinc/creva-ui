@@ -204,7 +204,7 @@ function PricingCard({
             'font-roboto block w-full cursor-pointer rounded-xl border py-2 font-medium transition-all duration-300 ease-in',
           )}
         >
-          Get Started With {type}
+          Get Started {type === 'Free' ? 'For' : 'With'}
         </button>
       </div>
     </div>
