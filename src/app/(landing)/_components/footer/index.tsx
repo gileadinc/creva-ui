@@ -30,15 +30,15 @@ const linksData = [
 const contactData = [
   {
     name: 'Location',
-    value: 'Charlottesville, California',
+    value: '13785 Research Blvd, Suite 125 Austin, TX 78750',
   },
   {
     name: 'Email',
-    value: 'contact@creva.com',
+    value: '422 Langone St STE A, San Jose, CA 95113',
   },
   {
     name: 'Phone',
-    value: '(434) 123-4356',
+    value: '+1 408 769 9094',
   },
 ];
 
