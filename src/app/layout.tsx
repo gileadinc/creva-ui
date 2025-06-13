@@ -3,6 +3,7 @@ import { Nunito, Roboto } from 'next/font/google';
 import { ReactLenis } from 'lenis/react';
 import { ThemeProvider } from '@/context/theme-providers';
 import './globals.css';
+import Matomo from '@/components/matomo-analytics';
 
 const nunito = Nunito({
   variable: '--font-nunito',
@@ -39,6 +40,7 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <Matomo />
       </body>
     </html>
   );

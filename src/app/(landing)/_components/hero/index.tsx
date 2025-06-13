@@ -2,6 +2,7 @@
 import { Variants, motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
+import { push } from '@socialgouv/matomo-next';
 
 const heroVariant: Variants = {
   start: {
@@ -35,6 +36,9 @@ export default function Hero({
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
+  const handleTryAgentClick = () => {
+    push(['trackEvent', 'tryAgent', 'click tryAgent button']);
+  };
   return (
     <div className={cn('container mx-auto pt-[65px]', className)}>
       <motion.div
@@ -61,6 +65,7 @@ export default function Hero({
         </div>
         <div className="mt-12 flex w-full flex-wrap justify-center gap-4 sm:gap-8">
           <motion.button
+            onClick={handleTryAgentClick}
             variants={heroChildVariant}
             className="font-roboto group relative h-[39px] w-[180px] cursor-pointer rounded-[200px] transition-opacity duration-300 ease-in-out"
           >
