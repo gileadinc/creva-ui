@@ -120,6 +120,7 @@ export default function CustomModal({
       duration: 3000,
       position: 'top-right',
     });
+    handleCloseModal();
   }
 
   const handleCloseModal = () => {

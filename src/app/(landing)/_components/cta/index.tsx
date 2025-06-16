@@ -4,11 +4,15 @@ import { ClassValue } from 'clsx';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 import * as variants from '@/lib/motion-variants';
+import { useState } from 'react';
+import CustomModal from '@/components/shared/custom-modal';
 export default function Cta({
   className,
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className={cn('relative mx-auto w-full max-w-6xl', className)}>
       <div className="absolute right-0 bottom-[-100px] left-0 h-[200px]">
@@ -51,6 +55,7 @@ export default function Cta({
             </motion.h1>
 
             <motion.button
+              onClick={() => setIsModalOpen(true)}
               variants={variants.buttonVariant}
               initial="start"
               whileInView="end"
@@ -62,6 +67,11 @@ export default function Cta({
           </div>
         </div>
       </div>
+      <CustomModal
+        showFormOnly
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
