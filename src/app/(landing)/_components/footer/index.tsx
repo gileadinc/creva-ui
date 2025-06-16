@@ -106,7 +106,8 @@ export default function Footer({
         <hr className="mt-8 text-[#5CD9BA]" />
         <div className="grid place-content-center py-4">
           <span className="font-roboto text-clrText block text-center text-xs opacity-[57%]">
-            © 2020 Cerva. All rights reserved.
+            © <span className="mr-1">{new Date().getFullYear()}</span> Cerva.
+            All rights reserved.
           </span>
         </div>
       </div>

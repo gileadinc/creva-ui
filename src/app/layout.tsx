@@ -4,6 +4,7 @@ import { ReactLenis } from 'lenis/react';
 import { ThemeProvider } from '@/context/theme-providers';
 import './globals.css';
 import Matomo from '@/components/matomo-analytics';
+import { Toaster } from '@/components/ui/sonner';
 
 const nunito = Nunito({
   variable: '--font-nunito',
@@ -39,7 +40,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster className="dark:bg-clrBlackPearl bg-clrAquaHaze text-clrTextLight dark:text-clrText" />
         </ThemeProvider>
+
         <Matomo />
       </body>
     </html>

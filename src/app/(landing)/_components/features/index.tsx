@@ -16,6 +16,128 @@ interface IFeature {
   detailData: IDetailData[];
 }
 
+// const featuresData = [
+//   {
+//     img: '/assets/svg/phone-sc-icon.svg',
+//     title: 'AI-Powered Phone Screening',
+//     description:
+//       'Automate initial candidate evaluations with AI-powered phone screenings, delivering consistent assessments and saving time in the hiring process.',
+//     detailData: [
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//     ],
+//   },
+//   {
+//     img: '/assets/svg/prompts-icon.svg',
+//     title: 'Custom Prompts',
+//     description:
+//       'Create tailored prompts for interviews and assessments, enabling focused evaluations that align with your specific hiring criteria and company culture.',
+//     detailData: [
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//     ],
+//   },
+//   {
+//     img: '/assets/svg/ai-agents-icon.svg',
+//     title: 'Industry-specific AI agents',
+//     description:
+//       'Leverage tailored AI agents designed for specific industries, providing targeted insights and recommendations to optimize your recruitment process.',
+//     detailData: [
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//     ],
+//   },
+//   {
+//     img: '/assets/svg/resume-screening-icon.svg',
+//     title: 'Resume screening',
+//     description:
+//       'Utilize AI-driven resume screening to quickly identify top candidates by analyzing qualifications, experience, and skills against job requirements.',
+//     detailData: [
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//     ],
+//   },
+//   {
+//     img: '/assets/svg/work-flow-icon.svg',
+//     title: 'Create A Work Flow',
+//     description:
+//       'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//     detailData: [
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//     ],
+//   },
+//   {
+//     img: '/assets/svg/ats-icon.svg',
+//     title: 'Integration With CRM/ATS',
+//     description:
+//       'Seamlessly connect with your existing CRM or Applicant Tracking System (ATS) to streamline candidate management and enhance data flow across platforms.',
+//     detailData: [
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//       {
+//         title: 'Main title one',
+//         text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+//       },
+//     ],
+//   },
+// ];
 const featuresData = [
   {
     img: '/assets/svg/phone-sc-icon.svg',
@@ -24,16 +146,16 @@ const featuresData = [
       'Automate initial candidate evaluations with AI-powered phone screenings, delivering consistent assessments and saving time in the hiring process.',
     detailData: [
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Consistent Evaluation Criteria',
+        text: 'Ensure every candidate is assessed using the same AI-driven script, eliminating human bias and increasing fairness.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Time-Saving Automation',
+        text: 'Replace manual phone interviews with automated calls, freeing up recruiters for higher-value tasks.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Smart Response Analysis',
+        text: 'AI analyzes candidate responses in real-time, scoring tone, confidence, and content relevance.',
       },
     ],
   },
@@ -44,16 +166,16 @@ const featuresData = [
       'Create tailored prompts for interviews and assessments, enabling focused evaluations that align with your specific hiring criteria and company culture.',
     detailData: [
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Role-Specific Questions',
+        text: 'Customize interview questions to evaluate the specific skills and experience needed for each role.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Cultural Fit Assessments',
+        text: 'Craft prompts that reflect your company’s values and working style to assess cultural compatibility.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Flexible Prompt Library',
+        text: 'Build and reuse a library of prompts tailored for different positions, seniority levels, and departments.',
       },
     ],
   },
@@ -64,16 +186,16 @@ const featuresData = [
       'Leverage tailored AI agents designed for specific industries, providing targeted insights and recommendations to optimize your recruitment process.',
     detailData: [
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Tailored Intelligence',
+        text: 'AI agents trained on industry-specific data ensure better alignment with domain-specific roles and jargon.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Role-Relevant Insights',
+        text: 'Receive smart suggestions on candidate suitability based on industry trends and benchmarks.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Compliance and Standards',
+        text: 'Ensure interviews and assessments comply with sector-specific regulations and standards.',
       },
     ],
   },
@@ -84,16 +206,16 @@ const featuresData = [
       'Utilize AI-driven resume screening to quickly identify top candidates by analyzing qualifications, experience, and skills against job requirements.',
     detailData: [
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Keyword Matching',
+        text: 'Automatically detect keywords and qualifications from resumes that align with job descriptions.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Skill-Based Scoring',
+        text: 'Assign intelligent scores based on experience, education, and skills relevance to the position.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Bias-Free Filtering',
+        text: 'Reduce unconscious bias with neutral, criteria-based candidate filtering.',
       },
     ],
   },
@@ -104,16 +226,16 @@ const featuresData = [
       'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
     detailData: [
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Drag-and-Drop Workflow Builder',
+        text: 'Easily create recruitment flows with AI-powered components for screening, scoring, and decision-making.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Custom Decision Paths',
+        text: 'Set logic rules to automatically advance or reject candidates based on performance or screening data.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Integrated Feedback Loops',
+        text: 'Allow hiring managers to inject feedback that refines future automation logic.',
       },
     ],
   },
@@ -124,16 +246,16 @@ const featuresData = [
       'Seamlessly connect with your existing CRM or Applicant Tracking System (ATS) to streamline candidate management and enhance data flow across platforms.',
     detailData: [
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Real-Time Data Sync',
+        text: 'Automatically push candidate data and updates between your ATS and the AI system without manual entry.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'Two-Way Communication',
+        text: 'Send and receive status updates, notes, and interview results directly in your ATS or CRM.',
       },
       {
-        title: 'Main title one',
-        text: 'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
+        title: 'API-Based Flexibility',
+        text: 'Flexible integrations with major platforms like Greenhouse, Lever, and Salesforce ensure smooth workflows.',
       },
     ],
   },
@@ -149,7 +271,7 @@ export default function Features({
       id="features"
       className={cn('mx-auto max-w-7xl overflow-hidden px-[1%]', className)}
     >
-      <div className="relative container mx-auto rounded-3xl bg-linear-48 from-[#5cd9ba] to-[#81b5e9] px-10 py-16 pb-10 lg:pl-20">
+      <div className="from-clrDawnyGreen to-clrDenimBlue relative container mx-auto rounded-3xl bg-linear-48 px-10 py-16 pb-10 lg:pl-20">
         <div className="pointer-events-none absolute top-5 right-0 bottom-10 left-0">
           <Image
             className="size-full object-contain"

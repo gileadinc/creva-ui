@@ -3,6 +3,8 @@ import { Variants, motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
 import { push } from '@socialgouv/matomo-next';
+import CustomModal from '@/components/shared/custom-modal';
+import { useState } from 'react';
 
 const heroVariant: Variants = {
   start: {
@@ -36,8 +38,17 @@ export default function Hero({
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModalClose = () => setIsModalOpen(false);
+  const handleModalOpen = () => setIsModalOpen(true);
+
   const handleTryAgentClick = () => {
-    push(['trackEvent', 'tryAgent', 'click tryAgent button']);
+    push(['trackEvent', 'tryAgent', 'clicked "Try AI Agent" button']);
+    handleModalOpen();
+  };
+  const handleStartFreeTrialClick = () => {
+    push(['trackEvent', 'startFreeTrial', 'clicked "Start Free Trial" button']);
+    handleModalOpen();
   };
   return (
     <div className={cn('container mx-auto pt-[65px]', className)}>
@@ -76,6 +87,7 @@ export default function Hero({
           </motion.button>
 
           <motion.button
+            onClick={handleStartFreeTrialClick}
             variants={heroChildVariant}
             className="group from-clrDawnyGreen to-clrDenimBlue relative inline-block h-[39px] w-[180px] cursor-pointer rounded-[200px] bg-linear-90 p-[2px]"
           >
@@ -85,6 +97,7 @@ export default function Hero({
           </motion.button>
         </div>
       </motion.div>
+      <CustomModal isOpen={isModalOpen} onClose={handleModalClose} />
     </div>
   );
 }

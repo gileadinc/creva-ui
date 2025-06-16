@@ -4,11 +4,15 @@ import { ClassValue } from 'clsx';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 import * as variants from '@/lib/motion-variants';
+import { Play, Pause } from 'lucide-react';
+import { useRef, useState } from 'react';
+
 interface IAgent {
   img: string;
   name: string;
   country: string;
   music: string;
+  description: string;
 }
 
 const agentsData: IAgent[] = [
@@ -16,25 +20,33 @@ const agentsData: IAgent[] = [
     img: '/assets/img/character-1.png',
     name: 'Ben',
     country: 'Melbourne, Australia',
-    music: '/assets/music/agent-1.mp3',
+    music: '/assets/audio/ben-agent.mp3',
+    description:
+      "Hi, I'm Ben from Melbourne, Australia. With years of experience in tech and communication, I'm here to guide you through the process and make sure you get the most out of our platform. Let’s make something great together.",
   },
   {
     img: '/assets/img/character-4.png',
     name: 'Jazmin',
     country: 'Paris, France',
-    music: '/assets/music/agent-1.mp3',
+    music: '/assets/audio/jazmin-agent.mp3',
+    description:
+      "Bonjour! I'm Jazmin from Paris, France. I'm passionate about connecting people with the right opportunities. I'm here to walk you through every step and make sure you feel confident and supported throughout your journey.",
   },
   {
     img: '/assets/img/character-2.png',
     name: 'Maria',
     country: 'London, United Kingdom',
-    music: '/assets/music/agent-1.mp3',
+    music: '/assets/audio/maria-agent.mp3',
+    description:
+      "Hello there! I'm Maria, based in London. I love helping individuals grow and succeed. Whether you're just starting out or looking to take the next step in your career, I'm here to provide guidance and support tailored just for you.",
   },
   {
     img: '/assets/img/character-3.png',
     name: 'Peter',
-    country: 'los angeles, California',
-    music: '/assets/music/agent-1.mp3',
+    country: 'Barcelona, Spain',
+    music: '/assets/audio/peter-agent.mp3',
+    description:
+      'Hola! I’m Peter from the beautiful city of Barcelona, Spain. I specialize in helping candidates unlock their full potential. My goal is to ensure your talents are matched with the right opportunities, and that you feel empowered every step of the way.',
   },
 ];
 
@@ -43,6 +55,30 @@ export default function VoiceAgentsDemo({
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const audioRefs = useRef<HTMLAudioElement[]>([]);
+
+  const handlePlayPause = (index: number) => {
+    if (activeIndex !== null && activeIndex !== index) {
+      const prevAudio = audioRefs.current[activeIndex];
+      if (prevAudio) {
+        prevAudio.pause();
+        prevAudio.currentTime = 0;
+      }
+    }
+
+    const currentAudio = audioRefs.current[index];
+    if (currentAudio) {
+      if (activeIndex === index) {
+        currentAudio.pause();
+        setActiveIndex(null);
+      } else {
+        currentAudio.currentTime = 0;
+        currentAudio.play();
+        setActiveIndex(index);
+      }
+    }
+  };
   return (
     <div
       className={cn(
@@ -87,7 +123,12 @@ export default function VoiceAgentsDemo({
                 key={idx}
                 className="min-w-[200px] md:min-w-[240px] lg:min-w-[280px]"
               >
-                <AgentsCard item={agent} />
+                <AgentsCard
+                  item={agent}
+                  isPlaying={activeIndex === idx}
+                  onClick={() => handlePlayPause(idx)}
+                  audioRef={(el) => (audioRefs.current[idx] = el)}
+                />
               </motion.li>
             ))}
           </motion.ul>
@@ -97,31 +138,53 @@ export default function VoiceAgentsDemo({
   );
 }
 
-function AgentsCard({ item }: { item: IAgent }) {
-  const { img, name, country } = item;
+function AgentsCard({
+  item,
+  isPlaying,
+  onClick,
+  audioRef,
+}: {
+  item: IAgent;
+  isPlaying: boolean;
+  onClick: () => void;
+  audioRef: (el: HTMLAudioElement) => void;
+}) {
+  const { img, name, country, music } = item;
+
   return (
-    <div className="dark:bg-clrBlackPearl dark:text-clrText text-clrTextLight font-nunito w-full rounded-md bg-white p-4 text-center">
-      <div className="">
+    <div className="dark:bg-clrBlackPearl dark:text-clrText text-clrTextLight font-nunito relative w-full rounded-md bg-white p-4 text-center">
+      <div className="relative rounded-full p-2">
         <Image
           loading="lazy"
-          className="mx-auto size-[200px] md:size-[240px]"
+          className={cn('mx-auto size-[200px] rounded-full md:size-[240px]')}
           src={img}
           width={180}
           height={180}
           alt={`agent-${name}`}
         />
+        <div
+          className={cn(
+            isPlaying &&
+              'dark:ring-clrCaribbeanGreen dark:bg-clrCaribbeanGreen/30 ring-clrCaribbeanGreen/70 absolute inset-0 animate-pulse rounded-full bg-black/20 ring-4',
+          )}
+        ></div>
       </div>
       <h3 className="mt-1 text-lg font-semibold">{name}</h3>
       <p className="text-xs font-light opacity-60">{country}</p>
-      <button className="mx-auto mt-4 mb-2 block h-8 w-8 cursor-pointer">
-        <Image
-          className=""
-          src={'/assets/svg/play-icon.svg'}
-          width={40}
-          height={40}
-          alt="play-icon"
-        />
+      <button
+        onClick={onClick}
+        className="bg-clrDawnyGreen mx-auto mt-4 mb-2 grid size-10 cursor-pointer place-content-center rounded-full transition-all duration-300 ease-in-out hover:scale-110"
+      >
+        {isPlaying ? (
+          <Pause className="size-4 text-black" />
+        ) : (
+          <Play className="size-4 text-black" />
+        )}
       </button>
+
+      <audio ref={audioRef} src={music}>
+        Your browser does not support the audio element.
+      </audio>
     </div>
   );
 }

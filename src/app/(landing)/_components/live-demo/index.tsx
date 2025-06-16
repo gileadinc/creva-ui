@@ -8,6 +8,8 @@ import { ClassValue } from 'clsx';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import CustomModal from '@/components/shared/custom-modal';
+import { push } from '@socialgouv/matomo-next';
 
 export default function LiveDemo({
   className,
@@ -15,10 +17,23 @@ export default function LiveDemo({
   className?: React.CSSProperties | ClassValue | string;
 }) {
   const { resolvedTheme } = useTheme();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModalClose = () => setIsModalOpen(false);
+  const handleModalOpen = () => setIsModalOpen(true);
+
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleTryLiveInteractionClick = () => {
+    push([
+      'trackEvent',
+      'tryLiveInteraction',
+      'clicked "Try The Live Interaction" button',
+    ]);
+    handleModalOpen();
+  };
 
   return (
     <div className={cn('py-14 sm:py-30 md:pt-52 lg:pt-64', className)}>
@@ -66,9 +81,20 @@ export default function LiveDemo({
             height={100}
           />
         )}
+        <Image
+          className={cn(
+            'absolute -z-10 size-full object-cover opacity-0 lg:static',
+            mounted && 'hidden',
+          )}
+          src={'/assets/svg/track-vector.svg'}
+          alt="track"
+          width={100}
+          height={100}
+        />
       </div>
       <div className="container mx-auto mt-8 flex justify-center">
         <motion.button
+          onClick={handleTryLiveInteractionClick}
           variants={variants.buttonVariant}
           initial="start"
           whileInView="end"
@@ -82,6 +108,11 @@ export default function LiveDemo({
           </span>
         </motion.button>
       </div>
+      <CustomModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        showFormOnly
+      />
     </div>
   );
 }

@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 //   '/assets/svg/bayer-icon.svg',
 //   '/assets/svg/congnizant-icon.svg',
 // ];
-let partnersImages = [
+const partnersImages = [
   {
     light: '/assets/svg/tiktok-icon-light.svg',
     dark: '/assets/svg/tiktok-icon.svg',
