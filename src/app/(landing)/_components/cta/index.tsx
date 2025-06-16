@@ -45,7 +45,7 @@ export default function Cta({
               initial="start"
               whileInView="end"
               viewport={{ once: true }}
-              className="font-nunito mx-auto max-w-xl text-center text-[36px] leading-[44px] font-extrabold text-[#0b132b] uppercase sm:text-5xl sm:leading-[54px]"
+              className="font-nunito mx-auto max-w-xl text-center text-[36px] leading-[44px] font-extrabold text-white uppercase sm:text-5xl sm:leading-[54px] dark:text-[#0b132b]"
             >
               Make Your Hiring Hustle Free
             </motion.h1>
@@ -55,7 +55,7 @@ export default function Cta({
               initial="start"
               whileInView="end"
               viewport={{ once: true }}
-              className="bg-clrBlackPearl/95 hover:bg-clrBlackPearl font-roboto text-clrText mx-auto block cursor-pointer justify-start px-3 py-2 text-center font-medium"
+              className="dark:bg-clrBlackPearl/95 dark:hover:bg-clrBlackPearl font-roboto dark:text-clrText text-clrTextLight mx-auto block cursor-pointer justify-start bg-white px-3 py-2 text-center font-medium hover:bg-white/85"
             >
               Get Started For Free
             </motion.button>

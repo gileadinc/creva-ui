@@ -3,6 +3,11 @@
 
 /* custom */
 @theme {
+  /* light */
+  --color-clrAquaHaze: #f3f3f3;
+  --color-clrTextLight: #494e59;
+  --color-clrSeaShell: #f0f0f0;
+  /* dark */
   --color-clrBlackPearl: #0b132b;
   --color-clrFirefly: #141d38;
   --color-clrMirage: #0d1327;

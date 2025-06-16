@@ -50,13 +50,13 @@ export default function Hero({
         <div className="max-xs:px-[2%] flex flex-col items-center gap-8">
           <motion.h1
             variants={heroChildVariant}
-            className="font-nunito text-clrText xs:text-6xl mx-auto max-w-3xl text-center text-5xl font-extrabold md:text-[72px] lg:text-[96px] lg:leading-[90px]"
+            className="font-nunito text-clrTextLight dark:text-clrText xs:text-6xl mx-auto max-w-3xl text-center text-5xl font-extrabold md:text-[72px] lg:text-[96px] lg:leading-[90px]"
           >
             Meet Your New <br /> AI Recruiter
           </motion.h1>
           <motion.p
             variants={heroChildVariant}
-            className="text-clrText font-roboto max-w-[700px] text-center leading-[24px] font-light tracking-wide"
+            className="text-clrTextLight dark:text-clrText font-roboto max-w-[700px] text-center leading-[24px] font-light tracking-wide"
           >
             Transform your hiring with our AI-driven solutions. Streamline
             processes, discover top talent, and boost team performance—all while
@@ -79,7 +79,7 @@ export default function Hero({
             variants={heroChildVariant}
             className="group from-clrDawnyGreen to-clrDenimBlue relative inline-block h-[39px] w-[180px] cursor-pointer rounded-[200px] bg-linear-90 p-[2px]"
           >
-            <span className="text-clrText font-roboto bg-clrBlackPearl group-hover:bg-clrBlackPearl/70 flex h-full w-full items-center justify-center rounded-[200px] transition-colors duration-300 ease-in-out group-hover:backdrop-blur-2xl">
+            <span className="dark:text-clrText text-clrTextLight font-roboto dark:bg-clrBlackPearl dark:group-hover:bg-clrBlackPearl/70 flex h-full w-full items-center justify-center rounded-[200px] bg-white transition-colors duration-300 ease-in-out group-hover:bg-white/80 group-hover:backdrop-blur-2xl">
               Start a Free Trial
             </span>
           </motion.button>

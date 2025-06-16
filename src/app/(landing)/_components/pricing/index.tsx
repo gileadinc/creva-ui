@@ -95,7 +95,7 @@ export default function Pricing({
           initial="start"
           whileInView="end"
           viewport={{ once: true }}
-          className="text-clrText font-nunito xs:leading-[52px] xs:text-[44px] mx-auto mb-4 max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
+          className="text-clrTextLight dark:text-clrText font-nunito xs:leading-[52px] xs:text-[44px] mx-auto mb-4 max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
         >
           Pricing Plan for Your Recruitment Solutions
         </motion.h1>
@@ -104,7 +104,7 @@ export default function Pricing({
           initial="start"
           whileInView="end"
           viewport={{ once: true }}
-          className="text-clrText font-roboto mx-auto max-w-xl px-2 text-center font-light tracking-wide"
+          className="dark:text-clrText text-clrTextLight font-roboto mx-auto max-w-xl px-2 text-center font-light tracking-wide"
         >
           Discover our flexible pricing options tailored to meet your hiring
           needs and budget.
@@ -156,17 +156,17 @@ function PricingCard({
       className={cn(
         highlight
           ? 'bg-linear-48 from-[#5cd9ba] to-[#81b5e9] p-[3px]'
-          : 'bg-clrText p-[1px]',
+          : 'bg-clrText border-clrTextLight border p-[1px] dark:border-transparent',
         'rounded-lg',
       )}
     >
-      <div className="text-clrText bg-clrBlackPearl space-y-3 rounded-lg p-6">
+      <div className="dark:text-clrText text-clrTextLight dark:bg-clrBlackPearl space-y-3 rounded-lg bg-white p-6">
         <div className="flex items-center justify-between">
           <span className="font-nunito block text-4xl font-semibold">
             {type}
           </span>
           {badge && (
-            <span className="text-clrBlackPearl block w-24 rounded-3xl bg-[#5cd9ba] text-center">
+            <span className="dark:text-clrBlackPearl block w-24 rounded-3xl bg-[#5cd9ba] text-center text-white">
               {badge}
             </span>
           )}
@@ -188,7 +188,7 @@ function PricingCard({
         <p className="text-base font-light opacity-[57%]">{numberOfUsers}</p>
         <ul className="mt-4 min-h-[320px] space-y-1.5">
           {features.map((feature, idx) => (
-            <li className="text-light relative text-sm" key={idx}>
+            <li className="relative text-sm" key={idx}>
               <span className="absolute w-[10px] text-green-500">{'✓'}</span>
               <span className="ml-[20px] block font-light opacity-[57%]">
                 {feature}
@@ -199,8 +199,8 @@ function PricingCard({
         <button
           className={cn(
             highlight
-              ? 'text-clrBlackPearl border-transparent bg-linear-48 from-[#5cd9ba] to-[#81b5e9] hover:opacity-80'
-              : 'text-clrText border-clrText bg-transparent hover:bg-white/5',
+              ? 'dark:text-clrBlackPearl border-transparent bg-linear-48 from-[#5cd9ba] to-[#81b5e9] text-white hover:opacity-80'
+              : 'dark:text-clrText dark:border-clrText text-clrTextLight border-clrTextLight bg-transparent hover:bg-black/5 dark:hover:bg-white/5',
             'font-roboto block w-full cursor-pointer rounded-xl border py-2 font-medium transition-all duration-300 ease-in',
           )}
         >

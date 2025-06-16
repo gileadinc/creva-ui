@@ -103,7 +103,7 @@ export default function Navbar({
           isNavbarVisible ? 'top-0' : '-top-[100px]',
           isMobileNavOpen
             ? 'rounded-b-none'
-            : 'bg-clrFirefly/80 rounded-xl backdrop-blur-xl',
+            : 'dark:bg-clrFirefly/80 bg-clrAquaHaze/40 rounded-xl backdrop-blur-xl',
           'relative m-4 mx-auto flex h-[65px] max-w-7xl items-center rounded-xl transition-all duration-300 ease-in',
         )}
       >
@@ -116,11 +116,11 @@ export default function Navbar({
             alt="creva logo"
           />
           <nav className="hidden lg:block">
-            <ul className="flex flex-1 text-white sm:gap-6 md:gap-10 lg:gap-14">
+            <ul className="flex flex-1 sm:gap-6 md:gap-10 lg:gap-14">
               {navbarLinks.map(({ name, href }, idx) => (
                 <li
                   onClick={() => handleClick(href)}
-                  className="text-clrText font-roboto hover:text-clrDawnyGreen cursor-pointer transition-colors duration-300 ease-in-out"
+                  className="dark:text-clrText text-clrTextLight font-roboto dark:hover:text-clrDawnyGreen cursor-pointer transition-colors duration-300 ease-in-out hover:text-black"
                   key={idx}
                 >
                   {name}
@@ -128,9 +128,9 @@ export default function Navbar({
               ))}
             </ul>
           </nav>
-          <button className="group relative hidden h-8 w-32 cursor-pointer text-sm font-medium text-white transition-colors duration-300 ease-in-out lg:block">
+          <button className="group relative hidden h-8 w-32 cursor-pointer text-sm font-medium transition-colors duration-300 ease-in-out lg:block">
             <div className="absolute top-0 left-0 -z-10 h-8 w-32 rounded-[35px] bg-linear-48 from-[#5cd9ba] to-[#81b5e9]" />
-            <span className="text-clrText bg-clrFirefly font-roboto group-hover:bg-clrFirefly/70 absolute top-1/2 left-1/2 grid h-[28.5px] w-[123px] -translate-x-1/2 -translate-y-1/2 place-content-center rounded-[35px] text-sm font-light capitalize transition-colors duration-300 ease-in-out group-hover:backdrop-blur-xl">
+            <span className="dark:text-clrText dark:bg-clrFirefly font-roboto dark:group-hover:bg-clrFirefly/70 text-clrTextLight absolute top-1/2 left-1/2 grid h-[28.5px] w-[123px] -translate-x-1/2 -translate-y-1/2 place-content-center rounded-[35px] bg-white text-sm font-light capitalize transition-colors duration-300 ease-in-out group-hover:bg-white/80 group-hover:backdrop-blur-xl">
               Sign Up
             </span>
           </button>
@@ -146,7 +146,7 @@ export default function Navbar({
                   : 'scale-100 opacity-100',
               )}
             >
-              <Menu className="size-8 cursor-pointer text-white" />
+              <Menu className="text-clrTextLight size-8 cursor-pointer dark:text-white" />
             </span>
             <span
               onClick={closeMenu}
@@ -157,7 +157,7 @@ export default function Navbar({
                   : 'pointer-events-none scale-90 opacity-0',
               )}
             >
-              <X className="size-8 cursor-pointer text-white" />
+              <X className="text-clrTextLight size-8 cursor-pointer dark:text-white" />
             </span>
           </div>
         </div>
@@ -168,16 +168,16 @@ export default function Navbar({
             isMobileNavOpen
               ? 'pointer-events-auto opacity-100'
               : 'pointer-events-none opacity-0',
-            'bg-clrFirefly/60 absolute top-0 h-[410px] w-full rounded-xl px-[2%] backdrop-blur-xl transition-all duration-300 ease-in lg:hidden',
+            'dark:bg-clrFirefly/60 bg-clrAquaHaze/20 absolute top-0 h-[410px] w-full rounded-xl px-[2%] backdrop-blur-xl transition-all duration-300 ease-in lg:hidden',
           )}
         >
           <div className="h-[55px]"></div>
           <nav className="mb-2 block rounded-b-xl px-2 py-2 lg:hidden">
-            <ul className="mb-4 flex flex-col gap-4 text-white">
+            <ul className="mb-4 flex flex-col gap-4">
               {navbarLinks.map(({ name, href }, idx) => (
                 <li
                   onClick={() => handleClick(href)}
-                  className="text-clrText cursor-pointer py-2 text-center transition-colors duration-300 ease-in-out hover:text-[#5cd9ba]"
+                  className="dark:text-clrText text-clrTextLight cursor-pointer py-2 text-center transition-colors duration-300 ease-in-out hover:text-black dark:hover:text-[#5cd9ba]"
                   key={idx}
                 >
                   {name}

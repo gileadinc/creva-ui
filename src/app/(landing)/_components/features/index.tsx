@@ -174,7 +174,7 @@ export default function Features({
             initial="start"
             whileInView="end"
             viewport={{ once: true }}
-            className="font-nunito text-clrBlackPearl xs:text-5xl xs:leading-[52px] max-w-[656px] text-[40px] leading-[52px] font-bold capitalize"
+            className="font-nunito dark:text-clrBlackPearl xs:text-5xl xs:leading-[52px] max-w-[656px] text-[40px] leading-[52px] font-bold text-white capitalize"
           >
             Features That Empower Your Recruitment Process
           </motion.h1>
@@ -183,7 +183,7 @@ export default function Features({
             initial="start"
             whileInView="end"
             viewport={{ once: true }}
-            className="text-light font-roboto text-clrBlackPearl max-w-[486px]"
+            className="text-light font-roboto dark:text-clrBlackPearl max-w-[486px] text-white"
           >
             Discover innovative features that optimize your hiring—from smart
             candidate matching to automated scheduling.
@@ -216,7 +216,7 @@ function FeatureCard({ item }: { item: IFeature }) {
   const { img, title, description, detailData } = item;
 
   return (
-    <div className="bg-clrBlackPearl group relative h-full cursor-pointer rounded-xl p-6">
+    <div className="dark:bg-clrBlackPearl group bg-clrSeaShell relative h-full cursor-pointer rounded-xl p-6">
       <div className="flex flex-col items-center gap-4 opacity-100 transition-all duration-500 ease-linear group-hover:opacity-0">
         <motion.div
           variants={variants.fadeInUp}
@@ -230,24 +230,24 @@ function FeatureCard({ item }: { item: IFeature }) {
             alt={title}
           />
         </motion.div>
-        <div className="font-nunito text-clrText space-y-2">
+        <div className="font-nunito text-clrTextLight dark:text-clrText space-y-2">
           <motion.h2
             variants={variants.fadeInUp}
-            className="font-nunito text-clrText max-w-64 justify-start text-2xl font-extrabold uppercase"
+            className="font-nunito max-w-64 justify-start text-2xl font-extrabold uppercase"
           >
             {title}
           </motion.h2>
 
           <motion.p
             variants={variants.fadeInUp}
-            className="font-nunito text-clrText max-w-72 justify-start text-xs leading-[20px] font-light"
+            className="font-nunito max-w-72 justify-start text-xs leading-[20px] font-light"
           >
             {description}
           </motion.p>
         </div>
       </div>
 
-      <div className="bg-clrBlackPearl absolute inset-0 rounded-xl opacity-0 transition-all duration-500 ease-linear group-hover:opacity-100">
+      <div className="bg-clrSeaShell dark:bg-clrBlackPearl absolute inset-0 rounded-xl opacity-0 transition-all duration-500 ease-linear group-hover:opacity-100">
         <div className="p-6">
           {detailData.map(({ title, text }, idx) => (
             <div key={idx}>
@@ -265,13 +265,13 @@ function FeatureCard({ item }: { item: IFeature }) {
               </motion.div>
               <motion.h3
                 variants={variants.fadeInUp}
-                className="font-nunito text-clrText mt-4 font-semibold uppercase"
+                className="font-nunito text-clrTextLight dark:text-clrText mt-4 font-semibold uppercase"
               >
                 {title}
               </motion.h3>
               <motion.p
                 variants={variants.fadeInUp}
-                className="font-nunito text-clrText/80 text-xs font-light"
+                className="font-nunito text-clrTextLight dark:text-clrText/80 text-xs font-light"
               >
                 {text}
               </motion.p>

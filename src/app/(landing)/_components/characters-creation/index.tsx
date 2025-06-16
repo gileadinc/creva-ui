@@ -3,6 +3,8 @@ import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
 import Image from 'next/image';
 import { motion, Variants } from 'motion/react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 const charactersImages = [
   '/assets/img/character-1.png',
   '/assets/img/character-2.png',
@@ -27,6 +29,12 @@ export default function CharactersCreation({
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className={cn('relative mt-8 pt-30', className)}>
       {/* <div className="xs:h-[180px] !lg:h-fit relative z-20 pb-10 sm:h-[280px] md:h-[340px] lg:h-[380px] xl:h-[460px] 2xl:h-[520px]"> */}
@@ -39,13 +47,19 @@ export default function CharactersCreation({
           </div>
         </div>
         {/* bg-vector */}
-        <Image
-          className="absolute -z-10 size-full object-cover opacity-20 lg:static"
-          src={'/assets/svg/track-vector.svg'}
-          alt="track"
-          width={100}
-          height={100}
-        />
+        {mounted && (
+          <Image
+            className="absolute -z-10 size-full object-cover opacity-20 lg:static"
+            src={
+              resolvedTheme === 'dark'
+                ? '/assets/svg/track-vector.svg'
+                : '/assets/svg/track-vector-light.svg'
+            }
+            alt="track"
+            width={100}
+            height={100}
+          />
+        )}
         {/* bg-vector */}
         {/* <div className="absolute inset-0 -z-10">
           <Image

@@ -55,7 +55,9 @@ export default function Footer({
   };
 
   return (
-    <div className={cn('bg-clrBlackPearl relative pt-16', className)}>
+    <div
+      className={cn('dark:bg-clrBlackPearl relative bg-white pt-16', className)}
+    >
       <div className="mx-auto max-w-6xl md:px-[1%]">
         <div className="xs:flex-row relative container mx-auto flex flex-col flex-wrap justify-between gap-6">
           <div className="max-xs:pl-5 sm:w-[200px] md:flex-1">
@@ -69,12 +71,14 @@ export default function Footer({
           </div>
           <div className="xs:flex-1 xs:justify-between max-xs:pl-5 flex flex-wrap gap-8">
             <div className="xs:basis-[100px]">
-              <h2 className="text-clrText/80 text-lg">Links</h2>
-              <ul className="mt-4 flex flex-col gap-2 opacity-[57%]">
+              <h2 className="dark:text-clrText/80 text-clrTextLight text-lg">
+                Links
+              </h2>
+              <ul className="mt-4 flex flex-col gap-2 opacity-[90%] dark:opacity-[57%]">
                 {linksData.map(({ name, href }, idx) => (
                   <li
                     onClick={() => handleClick(href)}
-                    className="text-clrText hover:text-clrDawnyGreen cursor-pointer font-light transition-colors duration-300 ease-in-out"
+                    className="dark:text-clrText text-clrTextLight dark:hover:text-clrDawnyGreen cursor-pointer font-light transition-colors duration-300 ease-in-out hover:text-black"
                     key={idx}
                   >
                     {name}
@@ -83,10 +87,15 @@ export default function Footer({
               </ul>
             </div>
             <div className="xs:basis-[180px]">
-              <h2 className="text-clrText/80 text-lg">Contact Us</h2>
-              <ul className="mt-4 flex flex-col gap-2 opacity-[57%]">
+              <h2 className="dark:text-clrText/80 text-clrTextLight text-lg">
+                Contact Us
+              </h2>
+              <ul className="mt-4 flex flex-col gap-2 opacity-[90%] dark:opacity-[57%]">
                 {contactData.map(({ value }, idx) => (
-                  <li className="text-clrText font-light" key={idx}>
+                  <li
+                    className="dark:text-clrText text-clrTextLight font-light"
+                    key={idx}
+                  >
                     {value}
                   </li>
                 ))}

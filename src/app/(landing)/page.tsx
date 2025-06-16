@@ -1,3 +1,4 @@
+import { ModeToggle } from '@/components/toggle-theme-icon';
 import CharacterCreation from './_components/characters-creation';
 import Cta from './_components/cta';
 import Faq from './_components/faq';
@@ -14,7 +15,8 @@ import VoiceAgentDemo from './_components/voice-agent-demo';
 
 export default function LandingPage() {
   return (
-    <div className="bg-clrBlackPearl size-full">
+    <div className="dark:bg-clrBlackPearl size-full bg-white">
+      <ModeToggle className="fixed right-10 bottom-20 z-90 hidden" />
       <Navbar />
       <Hero />
       <CharacterCreation />

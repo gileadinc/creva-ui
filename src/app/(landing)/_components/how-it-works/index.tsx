@@ -54,13 +54,13 @@ export default function HowItWorks({
 }) {
   return (
     <div id="howitworks" className={cn('py-14 sm:py-18 md:py-24', className)}>
-      <div className="container mx-auto">
+      <div className="dark:text-clrText text-clrTextLight container mx-auto">
         <motion.h1
           variants={variants.fadeInUp}
           initial="start"
           whileInView="end"
           viewport={{ once: true }}
-          className="text-clrText font-nunito xs:leading-[52px] xs:text-[44px] mx-auto mb-5 max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
+          className="font-nunito xs:leading-[52px] xs:text-[44px] mx-auto mb-5 max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
         >
           How Our AI Simplifies Your Hiring Process
         </motion.h1>
@@ -69,7 +69,7 @@ export default function HowItWorks({
           initial="start"
           whileInView="end"
           viewport={{ once: true }}
-          className="text-clrText font-roboto mx-auto max-w-2xl px-2 text-center font-light tracking-wide"
+          className="font-roboto mx-auto max-w-2xl px-2 text-center font-light tracking-wide"
         >
           Discover how our AI technology streamlines candidate sourcing,
           enhances matching accuracy, and automates tasks, making hiring easier
@@ -87,7 +87,7 @@ export default function HowItWorks({
             </li>
           ))}
         </ul>
-        <button className="text-clrBlackPearl from-clrDawnyGreen/95 hover:from-clrDawnyGreen hover:to-clrDenimBlue to-clrDenimBlue/95 font-roboto mx-auto mt-24 block w-[300px] cursor-pointer rounded-sm bg-linear-48 py-2 text-center font-medium transition-all duration-300 ease-in-out">
+        <button className="dark:text-clrBlackPearl from-clrDawnyGreen/95 hover:from-clrDawnyGreen hover:to-clrDenimBlue to-clrDenimBlue/95 font-roboto mx-auto mt-24 block w-[300px] cursor-pointer rounded-sm bg-linear-48 py-2 text-center font-medium text-white transition-all duration-300 ease-in-out">
           Get Started
         </button>
       </div>
@@ -122,10 +122,10 @@ function WorkFlowStep({
           <span className="text-clrBlackPearl font-roboto mb-3 block w-[164px] rounded-lg bg-linear-48 from-[#5cd9ba] to-[#81b5e9] py-1.5 text-center text-sm">
             {type}
           </span>
-          <h2 className="font-nunito text-clrText mb-4 text-4xl font-bold">
+          <h2 className="font-nunito text-clrTextLight dark:text-clrText mb-4 text-4xl font-bold">
             {title}
           </h2>
-          <p className="font-roboto text-clrText text-sm leading-[24px] font-light tracking-wide sm:max-w-md">
+          <p className="font-roboto text-clrTextLight dark:text-clrText text-sm leading-[24px] font-light tracking-wide sm:max-w-md">
             {description}
           </p>
         </div>
@@ -137,7 +137,7 @@ function WorkFlowStep({
         viewport={{ once: true }}
         className="flex-1"
       >
-        <div className="bg-clrFirefly/60 aspect-video rounded-xl backdrop-blur-2xl"></div>
+        <div className="dark:bg-clrFirefly/60 bg-clrAquaHaze aspect-video rounded-xl backdrop-blur-2xl"></div>
       </motion.div>
     </div>
   );

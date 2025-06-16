@@ -57,13 +57,13 @@ export default function Faq({
         className,
       )}
     >
-      <div className="text-clrText container mx-auto text-center">
+      <div className="dark:text-clrText text-clrTextLight container mx-auto text-center">
         <motion.h1
           variants={variants.fadeInUp}
           initial="start"
           whileInView="end"
           viewport={{ once: true }}
-          className="text-clrText font-nunito xs:leading-[52px] xs:text-[44px] mx-auto mb-4 max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
+          className="font-nunito xs:leading-[52px] xs:text-[44px] mx-auto mb-4 max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
         >
           Frequently Asked Questions About Creva
         </motion.h1>
@@ -115,22 +115,24 @@ function FaqCard({
   return (
     <div>
       <div
-        className="border-clrText/80 flex cursor-pointer items-center justify-between rounded-md border px-3 py-3 opacity-[0.95] transition-all hover:bg-white/10"
+        className="dark:border-clrText/80 border-clrTextLight bg-clrAquaHaze hover:bg-clrAquaHaze/80 flex cursor-pointer items-center justify-between rounded-md border px-3 py-3 opacity-[0.95] transition-all dark:bg-transparent dark:hover:bg-white/10"
         onClick={onClick}
       >
-        <h2 className="text-clrText/80 text-left">{item.question}</h2>
+        <h2 className="dark:text-clrText/80 text-clrTextLight text-left">
+          {item.question}
+        </h2>
         <span className="flex h-8 w-8 items-center justify-center rounded-full">
           {isOpen ? (
-            <Minus className="text-clrText/80" />
+            <Minus className="dark:text-clrText/80 text-clrTextLight" />
           ) : (
-            <Plus className="text-clrText/80" />
+            <Plus className="dark:text-clrText/80 text-clrTextLight" />
           )}
         </span>
       </div>
 
       <div
         className={cn(
-          'text-clrText/80 overflow-hidden px-3 transition-all duration-300 ease-in-out',
+          'dark:text-clrText/80 text-clrTextLight overflow-hidden px-3 transition-all duration-300 ease-in-out',
           isOpen ? 'mt-2 max-h-[200px] opacity-100' : 'max-h-0 opacity-0',
         )}
       >

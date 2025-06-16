@@ -51,13 +51,13 @@ export default function VoiceAgentsDemo({
       )}
     >
       <div className="container mx-auto w-full space-y-8">
-        <div className="container mx-auto w-full space-y-8">
+        <div className="dark:text-clrBlackPearl container mx-auto w-full space-y-8 text-white">
           <motion.h1
             variants={variants.fadeInUp}
             initial="start"
             whileInView="end"
             viewport={{ once: true }}
-            className="text-clrBlackPearl font-nunito mx-auto mb-4 max-w-[753px] text-center text-5xl leading-[52.67px] font-bold capitalize"
+            className="font-nunito mx-auto mb-4 max-w-[753px] text-center text-5xl leading-[52.67px] font-bold capitalize"
           >
             Different Voice Agents for Specific Industries
           </motion.h1>
@@ -66,7 +66,7 @@ export default function VoiceAgentsDemo({
             initial="start"
             whileInView="end"
             viewport={{ once: true }}
-            className="text-clrBlackPearl font-roboto mx-auto max-w-[700px] px-2 text-center font-light tracking-wide"
+            className="font-roboto mx-auto max-w-[700px] px-2 text-center font-light tracking-wide"
           >
             Discover how our Voice AI technology enhances candidate evaluation.
             Watch the demo to see its capabilities and benefits tailored for
@@ -100,7 +100,7 @@ export default function VoiceAgentsDemo({
 function AgentsCard({ item }: { item: IAgent }) {
   const { img, name, country } = item;
   return (
-    <div className="bg-clrBlackPearl text-clrText font-nunito w-full rounded-md p-4 text-center">
+    <div className="dark:bg-clrBlackPearl dark:text-clrText text-clrTextLight font-nunito w-full rounded-md bg-white p-4 text-center">
       <div className="">
         <Image
           loading="lazy"
