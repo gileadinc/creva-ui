@@ -15,8 +15,8 @@ import VoiceAgentDemo from './_components/voice-agent-demo';
 
 export default function LandingPage() {
   return (
-    <div className="dark:bg-clrBlackPearl size-full bg-white">
-      <ModeToggle className="fixed right-10 bottom-20 z-90 hidden" />
+    <div id="landing" className="dark:bg-clrBlackPearl size-full bg-white">
+      <ModeToggle className="fixed right-10 bottom-20 z-90" />
       <Navbar />
       <Hero />
       <CharacterCreation />

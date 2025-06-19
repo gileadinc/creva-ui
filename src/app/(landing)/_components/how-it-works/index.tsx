@@ -6,6 +6,13 @@ import Image from 'next/image';
 
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
+import CallingVectorIcon from '@/components/icons/calling-vector-icon';
+import { useRouter } from 'next/navigation';
+import {
+  MatomoAction,
+  MatomoCategory,
+  trackMatomoEvent,
+} from '@/lib/matomo-utils';
 
 interface IWorkFlowStep {
   step: number;
@@ -54,15 +61,24 @@ export default function HowItWorks({
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
+  const router = useRouter();
+  const handleGetStarted = () => {
+    trackMatomoEvent(
+      MatomoCategory.Button,
+      MatomoAction.Clicked,
+      'Get Started Button in How It Works Section',
+    );
+    router.push('/sign-up');
+  };
   return (
     <div id="howitworks" className={cn('py-14 sm:py-18 md:py-24', className)}>
-      <div className="dark:text-clrText text-clrTextLight container mx-auto">
+      <div className="dark:text-clrText text-clrTextLight container mx-auto space-y-5">
         <motion.h1
           variants={variants.fadeInUp}
           initial="start"
           whileInView="end"
           viewport={{ once: true }}
-          className="font-nunito xs:leading-[52px] xs:text-[44px] mx-auto mb-5 max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
+          className="font-nunito xs:leading-[52px] xs:text-[44px] mx-auto max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
         >
           How Our AI Simplifies Your Hiring Process
         </motion.h1>
@@ -71,7 +87,7 @@ export default function HowItWorks({
           initial="start"
           whileInView="end"
           viewport={{ once: true }}
-          className="font-roboto mx-auto max-w-2xl px-2 text-center font-light tracking-wide"
+          className="font-roboto mx-auto max-w-4xl px-2 text-center text-xl leading-[32px] font-light tracking-wide"
         >
           Discover how our AI technology streamlines candidate sourcing,
           enhances matching accuracy, and automates tasks, making hiring easier
@@ -89,7 +105,10 @@ export default function HowItWorks({
             </li>
           ))}
         </ul>
-        <button className="dark:text-clrBlackPearl from-clrDawnyGreen/95 hover:from-clrDawnyGreen hover:to-clrDenimBlue to-clrDenimBlue/95 font-roboto mx-auto mt-24 block w-[300px] cursor-pointer rounded-sm bg-linear-48 py-2 text-center font-medium text-white transition-all duration-300 ease-in-out">
+        <button
+          onClick={handleGetStarted}
+          className="dark:text-clrBlackPearl from-clrDawnyGreen/95 hover:from-clrDawnyGreen hover:to-clrDenimBlue to-clrDenimBlue/95 font-roboto mx-auto mt-24 block w-[300px] cursor-pointer rounded-sm bg-linear-48 py-2 text-center font-medium text-white transition-all duration-300 ease-in-out"
+        >
           Get Started
         </button>
       </div>
@@ -127,7 +146,7 @@ function WorkFlowStep({
           <h2 className="font-nunito text-clrTextLight dark:text-clrText mb-4 text-4xl font-bold">
             {title}
           </h2>
-          <p className="font-roboto text-clrTextLight dark:text-clrText text-sm leading-[24px] font-light tracking-wide sm:max-w-md">
+          <p className="font-roboto dark:text-clrText text-[17px] leading-[28px] font-light tracking-wide text-black sm:max-w-[450px]">
             {description}
           </p>
         </div>
@@ -285,13 +304,8 @@ function ScreenUI() {
               height={64}
             />
           </div>
-          <Image
-            className="absolute inset-0 top-1/2 left-1/2 w-[300px] -translate-x-1/2 -translate-y-1/2"
-            src={'/assets/svg/calling-vector.svg'}
-            alt="phone-icon"
-            width={100}
-            height={100}
-          />
+
+          <CallingVectorIcon className="absolute inset-0 top-1/2 left-1/2 -z-10 h-[80px] w-[300px] -translate-x-1/2 -translate-y-1/2" />
         </div>
 
         {/* Calling Button */}

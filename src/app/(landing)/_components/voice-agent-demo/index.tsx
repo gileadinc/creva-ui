@@ -6,49 +6,8 @@ import { motion } from 'motion/react';
 import * as variants from '@/lib/motion-variants';
 import { Play, Pause } from 'lucide-react';
 import { useRef, useState } from 'react';
-
-interface IAgent {
-  img: string;
-  name: string;
-  country: string;
-  music: string;
-  description: string;
-}
-
-const agentsData: IAgent[] = [
-  {
-    img: '/assets/img/character-1.png',
-    name: 'Ben',
-    country: 'Melbourne, Australia',
-    music: '/assets/audio/ben-agent.mp3',
-    description:
-      "Hi, I'm Ben from Melbourne, Australia. With years of experience in tech and communication, I'm here to guide you through the process and make sure you get the most out of our platform. Let’s make something great together.",
-  },
-  {
-    img: '/assets/img/character-4.png',
-    name: 'Jazmin',
-    country: 'Paris, France',
-    music: '/assets/audio/jazmin-agent.mp3',
-    description:
-      "Bonjour! I'm Jazmin from Paris, France. I'm passionate about connecting people with the right opportunities. I'm here to walk you through every step and make sure you feel confident and supported throughout your journey.",
-  },
-  {
-    img: '/assets/img/character-2.png',
-    name: 'Maria',
-    country: 'London, United Kingdom',
-    music: '/assets/audio/maria-agent.mp3',
-    description:
-      "Hello there! I'm Maria, based in London. I love helping individuals grow and succeed. Whether you're just starting out or looking to take the next step in your career, I'm here to provide guidance and support tailored just for you.",
-  },
-  {
-    img: '/assets/img/character-3.png',
-    name: 'Peter',
-    country: 'Barcelona, Spain',
-    music: '/assets/audio/peter-agent.mp3',
-    description:
-      'Hola! I’m Peter from the beautiful city of Barcelona, Spain. I specialize in helping candidates unlock their full potential. My goal is to ensure your talents are matched with the right opportunities, and that you feel empowered every step of the way.',
-  },
-];
+import { agentsData } from '@/constants/data';
+import { IAgent } from '@/types';
 
 export default function VoiceAgentsDemo({
   className,
@@ -86,14 +45,14 @@ export default function VoiceAgentsDemo({
         className,
       )}
     >
-      <div className="container mx-auto w-full space-y-8">
+      <div className="container mx-auto w-full space-y-10">
         <div className="dark:text-clrBlackPearl container mx-auto w-full space-y-8 text-white">
           <motion.h1
             variants={variants.fadeInUp}
             initial="start"
             whileInView="end"
             viewport={{ once: true }}
-            className="font-nunito mx-auto mb-4 max-w-[753px] text-center text-5xl leading-[52.67px] font-bold capitalize"
+            className="font-nunito mx-auto max-w-[753px] text-center text-5xl leading-[52.67px] font-bold capitalize"
           >
             Different Voice Agents for Specific Industries
           </motion.h1>
@@ -102,7 +61,7 @@ export default function VoiceAgentsDemo({
             initial="start"
             whileInView="end"
             viewport={{ once: true }}
-            className="font-roboto mx-auto max-w-[700px] px-2 text-center font-light tracking-wide"
+            className="font-roboto mx-auto max-w-3xl px-2 text-center text-xl leading-[32px] font-light tracking-wide text-white dark:text-black"
           >
             Discover how our Voice AI technology enhances candidate evaluation.
             Watch the demo to see its capabilities and benefits tailored for
@@ -165,15 +124,15 @@ function AgentsCard({
         <div
           className={cn(
             isPlaying &&
-              'dark:ring-clrCaribbeanGreen dark:bg-clrCaribbeanGreen/30 ring-clrCaribbeanGreen/70 absolute inset-0 animate-pulse rounded-full bg-black/20 ring-4',
+              'dark:ring-clrCaribbeanGreen/60 dark:bg-clrCaribbeanGreen/30 ring-clrCaribbeanGreen/70 absolute inset-0 animate-pulse rounded-full bg-black/20 ring-4',
           )}
         ></div>
       </div>
-      <h3 className="mt-1 text-lg font-semibold">{name}</h3>
-      <p className="text-xs font-light opacity-60">{country}</p>
+      <h3 className="mt-1 text-xl font-semibold">{name}</h3>
+      <p className="text-lg font-light dark:opacity-60">{country}</p>
       <button
         onClick={onClick}
-        className="bg-clrDawnyGreen mx-auto mt-4 mb-2 grid size-10 cursor-pointer place-content-center rounded-full transition-all duration-300 ease-in-out hover:scale-110"
+        className="bg-clrDawnyGreen mx-auto mt-2 mb-1 grid size-10 cursor-pointer place-content-center rounded-full transition-all duration-300 ease-in-out hover:scale-110"
       >
         {isPlaying ? (
           <Pause className="size-4 text-black" />

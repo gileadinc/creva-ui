@@ -3,49 +3,11 @@ import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
 import Image from 'next/image';
 import { motion, Variants } from 'motion/react';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
 
-import {
-  TooltipTrigger,
-  Tooltip,
-  TooltipContent,
-} from '@/components/ui/tooltip';
-import CustomModal from '@/components/shared/custom-modal';
-
-interface IAgent {
-  img: string;
-  name: string;
-  country: string;
-  music: string;
-}
-
-const agentsData: IAgent[] = [
-  {
-    img: '/assets/img/character-1.png',
-    name: 'Ben',
-    country: 'Melbourne, Australia',
-    music: '/assets/music/agent-1.mp3',
-  },
-  {
-    img: '/assets/img/character-2.png',
-    name: 'Maria',
-    country: 'London, United Kingdom',
-    music: '/assets/music/agent-1.mp3',
-  },
-  {
-    img: '/assets/img/character-3.png',
-    name: 'Peter',
-    country: 'los angeles, California',
-    music: '/assets/music/agent-1.mp3',
-  },
-  {
-    img: '/assets/img/character-4.png',
-    name: 'Jazmin',
-    country: 'Paris, France',
-    music: '/assets/music/agent-1.mp3',
-  },
-];
+import { useAppStore } from '@/store/useAppStore';
+import { agentsData } from '@/constants/data';
+import TrackVectorSvg from '@/components/icons/track-vector-icon';
+import CharacterTalking from './character-talking';
 
 const floatVariants: Variants = {
   animate: (i: number) => ({
@@ -64,24 +26,13 @@ export default function CharactersCreation({
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
-  const { resolvedTheme } = useTheme();
-  const [selectedAgent, setSelectedAgent] = useState<IAgent | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const selectCharacter = (agent: IAgent) => {
-    setSelectedAgent(agent);
-    setIsModalOpen(true);
-  };
+  const { selectedAgentId, setSelectedAgentId, openModal, isCharacterTalking } =
+    useAppStore();
 
   return (
     <div className={cn('relative mt-8 pt-30', className)}>
       {/* <div className="xs:h-[180px] !lg:h-fit relative z-20 pb-10 sm:h-[280px] md:h-[340px] lg:h-[380px] xl:h-[460px] 2xl:h-[520px]"> */}
-      <div className="xs:h-[200px] relative z-20 pb-10 sm:h-[280px] md:h-[340px] lg:h-fit">
+      <div className="xs:h-[300px] relative z-20 pb-10 sm:h-[340px] lg:h-fit">
         {/* bg-blur color */}
         <div className="absolute inset-0 -z-10 grid h-full w-full place-content-center opacity-60">
           <div className="relative mx-auto h-24 w-[calc(100vw-20px)] blur-[120px]">
@@ -90,35 +41,29 @@ export default function CharactersCreation({
           </div>
         </div>
         {/* bg-vector */}
-        {mounted && (
-          <Image
-            className="absolute -z-10 size-full object-cover opacity-20 lg:static"
-            src={
-              resolvedTheme === 'dark'
-                ? '/assets/svg/track-vector.svg'
-                : '/assets/svg/track-vector-light.svg'
-            }
-            alt="track"
-            width={100}
-            height={100}
-          />
-        )}
         <Image
           className={cn(
             'absolute -z-10 size-full object-cover opacity-0 lg:static',
-            mounted && 'hidden',
           )}
           src={'/assets/svg/track-vector.svg'}
           alt="track"
           width={100}
           height={100}
         />
+        <TrackVectorSvg className="absolute inset-0 mx-auto size-full w-full text-[#585858] opacity-20 dark:text-white" />
 
         <div className="container mx-auto h-full lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
           <ul className="flex h-full flex-wrap items-center justify-center gap-6 max-sm:py-10 sm:gap-10 md:gap-20 lg:gap-24">
             {agentsData.map((agent, idx) => (
               <motion.li
-                onClick={() => selectCharacter(agent)}
+                onClick={() => {
+                  if (selectedAgentId && isCharacterTalking) {
+                    setSelectedAgentId('');
+                    return;
+                  }
+                  setSelectedAgentId(agent.id);
+                  openModal('agentInteraction');
+                }}
                 key={idx}
                 variants={floatVariants}
                 animate="animate"
@@ -137,43 +82,12 @@ export default function CharactersCreation({
                   'max-sm:animate-none',
                 )}
               >
-                <Tooltip key={idx}>
-                  <TooltipTrigger asChild>
-                    <Image
-                      className="size-full object-cover"
-                      src={agent.img}
-                      width={100}
-                      height={100}
-                      alt="character"
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent className="dark:bg-clrMidNightDark bg-clrAquaHaze flex items-center gap-2 py-2">
-                    <div className="size-5">
-                      <Image
-                        className="size-full object-contain"
-                        src={'/assets/svg/mic-icon.svg'}
-                        alt="mic"
-                        width={10}
-                        height={10}
-                      />
-                    </div>
-                    <div>
-                      <p className="font-roboto text-clrTextLight dark:from-clrDawnyGreen dark:to-clrDenimBlue dark:bg-linear-53 dark:bg-clip-text dark:text-transparent">
-                        Talk with {agent.name}
-                      </p>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
+                <CharacterTalking agent={agent} idx={idx} />
               </motion.li>
             ))}
           </ul>
         </div>
       </div>
-      <CustomModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        agent={selectedAgent}
-      />
     </div>
   );
 }

@@ -1,21 +1,21 @@
 import type { Metadata } from 'next';
-import { Nunito, Roboto } from 'next/font/google';
-import { ReactLenis } from 'lenis/react';
+// import { Nunito, Roboto } from 'next/font/google';
 import { ThemeProvider } from '@/context/theme-providers';
 import './globals.css';
 import Matomo from '@/components/matomo-analytics';
 import { Toaster } from '@/components/ui/sonner';
-
-const nunito = Nunito({
-  variable: '--font-nunito',
-  subsets: ['latin'],
-  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
-});
-const roboto = Roboto({
-  variable: '--font-roboto',
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-});
+import ReactLenisProvider from '@/components/react-lenis';
+import { nunito, roboto } from '@/fonts';
+// const nunito = Nunito({
+//   variable: '--font-nunito',
+//   subsets: ['latin'],
+//   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
+// });
+// const roboto = Roboto({
+//   variable: '--font-roboto',
+//   subsets: ['latin'],
+//   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+// });
 
 export const metadata: Metadata = {
   title: 'Creva',
@@ -32,7 +32,6 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${nunito.variable} overflow-x-hidden scroll-smooth antialiased`}
       >
-        <ReactLenis root />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -40,9 +39,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <Toaster className="dark:bg-clrBlackPearl bg-clrAquaHaze text-clrTextLight dark:text-clrText" />
-        </ThemeProvider>
 
+          <Toaster className="dark:bg-clrBlackPearl bg-clrAquaHaze text-clrTextLight dark:text-clrText" />
+          <ReactLenisProvider />
+        </ThemeProvider>
         <Matomo />
       </body>
     </html>

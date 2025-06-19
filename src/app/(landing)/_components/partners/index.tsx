@@ -1,54 +1,19 @@
 'use client';
 import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
-import Image from 'next/image';
 import { motion } from 'motion/react';
 import * as variants from '@/lib/motion-variants';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-// const partnersImages2 = [
-//   '/assets/svg/tiktok-icon.svg',
-//   '/assets/svg/paypal-icon.svg',
-//   '/assets/svg/future-icon.svg',
-//   '/assets/svg/bayer-icon.svg',
-//   '/assets/svg/congnizant-icon.svg',
-// ];
-const partnersImages = [
-  {
-    light: '/assets/svg/tiktok-icon-light.svg',
-    dark: '/assets/svg/tiktok-icon.svg',
-  },
-  {
-    light: '/assets/svg/paypal-icon-light.svg',
-    dark: '/assets/svg/paypal-icon.svg',
-  },
-  {
-    light: '/assets/svg/future-icon-light.svg',
-    dark: '/assets/svg/future-icon.svg',
-  },
-  {
-    light: '/assets/svg/bayer-icon-light.svg',
-    dark: '/assets/svg/bayer-icon.svg',
-  },
-  {
-    light: '/assets/svg/congnizant-icon-light.svg',
-    dark: '/assets/svg/congnizant-icon.svg',
-  },
-];
+import TikTokIcon from '@/components/icons/tiktok-icon';
+import PayPalIcon from '@/components/icons/paypal-icon';
+import FutureIcon from '@/components/icons/future-icon';
+import BayerIcon from '@/components/icons/bayer-icon';
+import CongnizantIcon from '@/components/icons/congnizant-icon';
+
 export default function Partners({
   className,
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
-  const { resolvedTheme } = useTheme();
-
-  const [mounted, setMounted] = useState(false);
-
-  // Ensures `resolvedTheme` is ready before rendering
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <div className={cn('relative pb-20 sm:pb-0', className)}>
       {/* bg-blur color */}
@@ -66,23 +31,21 @@ export default function Partners({
               initial="start"
               whileInView="end"
               viewport={{ once: true }}
-              className="flex w-full items-center justify-center gap-8 max-md:flex-wrap xl:gap-20"
+              className="flex w-full items-center justify-center gap-10 max-md:flex-wrap xl:gap-24"
             >
-              {partnersImages.map(({ light, dark }, idx) => (
+              {[
+                TikTokIcon,
+                PayPalIcon,
+                FutureIcon,
+                BayerIcon,
+                CongnizantIcon,
+              ].map((Icon, idx) => (
                 <motion.li
                   key={idx}
                   variants={variants.fadeInUp}
                   className="block h-[32px] w-fit"
                 >
-                  {mounted && (
-                    <Image
-                      className="size-full object-contain text-[#F0F0F0] opacity-40"
-                      height={60}
-                      width={80}
-                      src={resolvedTheme === 'dark' ? dark : light}
-                      alt={`partner-${idx}`}
-                    />
-                  )}
+                  {<Icon key={idx} className="opacity-40" />}
                 </motion.li>
               ))}
             </motion.ul>

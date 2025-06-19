@@ -1,18 +1,11 @@
 'use client';
 import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '../ui/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { Loader, Mic, Phone } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -21,48 +14,40 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-interface IAgent {
-  img: string;
-  name: string;
-  country: string;
-  music: string;
-}
-
-const agentsData: IAgent[] = [
-  {
-    img: '/assets/img/character-1.png',
-    name: 'Ben',
-    country: 'Melbourne, Australia',
-    music: '/assets/music/agent-1.mp3',
-  },
-  {
-    img: '/assets/img/character-4.png',
-    name: 'Jazmin',
-    country: 'Paris, France',
-    music: '/assets/music/agent-1.mp3',
-  },
-  {
-    img: '/assets/img/character-2.png',
-    name: 'Maria',
-    country: 'London, United Kingdom',
-    music: '/assets/music/agent-1.mp3',
-  },
-  {
-    img: '/assets/img/character-3.png',
-    name: 'Peter',
-    country: 'los angeles, California',
-    music: '/assets/music/agent-1.mp3',
-  },
-];
+import { useAppStore } from '@/store/useAppStore';
+import { agentsData } from '@/constants/data';
+import {
+  ResponsiveModal,
+  ResponsiveModalContent,
+  ResponsiveModalDescription,
+  ResponsiveModalHeader,
+  ResponsiveModalTitle,
+} from '../ui/responsive-modal';
+import { useState } from 'react';
+import {
+  MatomoAction,
+  MatomoCategory,
+  trackMatomoEvent,
+} from '@/lib/matomo-utils';
 
 const formSchema = z.object({
-  fullName: z
-    .string({ message: 'Fullname is required' })
-    .min(4, { message: 'Fullname must be at least 4 characters long' })
-    .max(50, { message: 'Fullname must be at most 50 characters long' }),
+  firstName: z
+    .string({ message: 'FirstName is required' })
+    .min(4, { message: 'FirstName must be at least 4 characters long' })
+    .max(20, { message: 'FirstName must be at most 20 characters long' }),
+  lastName: z
+    .string({ message: 'LastName is required' })
+    .min(4, { message: 'LastName must be at least 4 characters long' })
+    .max(20, { message: 'LastName must be at most 20 characters long' }),
   email: z
     .string({ message: 'email is required' })
     .email({ message: 'Invalid email address' }),
@@ -71,162 +56,255 @@ const formSchema = z.object({
     .min(7, { message: 'Phone number must be at least 7 digits' })
     .max(15, { message: 'Phone number must be at most 15 digits' })
     .regex(/^\d+$/, { message: 'Phone number must contain only digits' }),
+  source: z.string({
+    required_error: 'Please select an option.',
+  }),
+  companyName: z.string().optional(),
+  jobTitle: z.string().optional(),
 });
 
 export default function CustomModal({
   className,
-  isOpen,
-  onClose,
-  showFormOnly = false,
-  agent,
 }: {
   className?: React.CSSProperties | ClassValue | string;
-  isOpen: boolean;
-  onClose: () => void;
-  showFormOnly?: boolean;
-  agent?: IAgent | null;
 }) {
-  const [selectedCharacter, setSelectedCharacter] = useState<IAgent | null>(
-    agentsData[0],
-  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    isModalOpen,
+    closeModal,
+    selectedAgentId,
+    setSelectedAgentId,
+    setIsCharacterTalking,
+    setIsTryLiveOn,
+    modalContext,
+  } = useAppStore();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      fullName: '',
+      firstName: '',
+      lastName: '',
       email: '',
       phoneNumber: '',
+      companyName: '',
+      jobTitle: '',
     },
   });
 
-  useEffect(() => {
-    if (agent) {
-      setSelectedCharacter(agent);
-    }
-  }, [agent]);
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const data = {
       ...values,
-      agent: showFormOnly
-        ? null
-        : {
-            name: selectedCharacter?.name || '',
-            country: selectedCharacter?.country || '',
-          },
+      agent: {
+        id: selectedAgentId,
+      },
     };
+    setIsSubmitting(true);
+    // simulate form submission...
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+
     console.log('Form submitted with data:', data);
+
     toast.success('Thank you for your submission!', {
-      description: 'We will get back to you soon.',
-      duration: 3000,
+      description: '',
+      duration: 1000,
       position: 'top-right',
     });
+
+    if (modalContext === 'agentInteraction') {
+      if (selectedAgentId) {
+        setIsCharacterTalking(true);
+        toast.success(
+          `You are now connected to ${agentsData.find((agent) => agent.id === selectedAgentId)?.name}`,
+          {
+            description: 'Your AI Agent is ready to assist you.',
+            duration: 3000,
+            position: 'top-right',
+          },
+        );
+      }
+    } else if (modalContext === 'tryLive') {
+      setIsTryLiveOn(true);
+      toast.success('You are now in the live interaction mode!', {
+        description: '',
+        position: 'top-right',
+      });
+    }
+
+    trackMatomoEvent(
+      MatomoCategory.Form,
+      MatomoAction.Submitted,
+      'Try AI Agent Form (Try AI Agent Button)',
+    );
+
+    setIsSubmitting(false);
     handleCloseModal();
   }
 
+  const handleCallOnPhone = async () => {
+    if (isSubmitting) return;
+    // validate form before proceeding
+    await form.trigger();
+
+    setIsSubmitting(true);
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+    toast.success('Thank you for your interest!', {
+      description: 'Our AI Agent is calling you now. Please wait a moment.',
+      position: 'top-right',
+    });
+    setIsSubmitting(false);
+
+    trackMatomoEvent(
+      MatomoCategory.Form,
+      MatomoAction.Submitted,
+      'Try AI Agent Form (Get A Phone Call Button)',
+    );
+
+    handleCloseModal();
+  };
+
   const handleCloseModal = () => {
+    if (isSubmitting) return;
     form.reset();
-    onClose();
+    closeModal();
+    trackMatomoEvent(
+      MatomoCategory.Modal,
+      MatomoAction.Closed,
+      modalContext === 'agentInteraction'
+        ? 'Expeiance AI Agent Interaction ModalClose (Hero Section)'
+        : 'Expeiance AI Agent Interaction ModalClose (TryLive Section)',
+    );
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleCloseModal}>
-      <DialogHeader className="hidden">
-        <DialogTitle>Modal Form</DialogTitle>
-        <DialogDescription>Modal Desc</DialogDescription>
-      </DialogHeader>
-      <DialogContent
+    <ResponsiveModal open={isModalOpen} onOpenChange={handleCloseModal}>
+      <ResponsiveModalContent
         aria-describedby="modal"
         className={cn(
-          'dark:bg-clrBlackPearl bg-clrAquaHaze z-100 overflow-hidden overflow-y-auto xl:w-fit',
+          'dark:bg-clrBlackPearl scrollbar-hide max-h-[calc(100vh-30px)] overflow-y-auto bg-white xl:min-w-[550px]',
           className,
         )}
       >
-        <div className="max-h-full overflow-y-auto">
+        <ResponsiveModalHeader className="hidden">
+          <ResponsiveModalTitle>Modal Form</ResponsiveModalTitle>
+          <ResponsiveModalDescription>Modal Desc</ResponsiveModalDescription>
+        </ResponsiveModalHeader>
+
+        <div className="h-full">
           <div className="font-nunito dark:text-clrText text-clrTextLight">
             <h3 className="py-2 text-[24px] font-extrabold">
-              {showFormOnly
-                ? 'Experience our AI Agents'
-                : ' Experience AI Agents Live'}
+              Experience Our AI Agents
             </h3>
             <hr className="text-clrDawnyGreen" />
-            <p className="my-3 mb-4 text-[12px] leading-[18px] font-light tracking-wide lg:text-sm">
+            <p className="my-3 mb-4 text-[12px] leading-[18px] font-light tracking-wide lg:text-base lg:leading-[24px]">
               Fill out the form below to experience our AI recruitment services.
               Please provide your full name, email address, and phone number
             </p>
           </div>
-          {!showFormOnly && <hr className="text-clrDawnyGreen" />}
+          <hr className="text-clrDawnyGreen" />
 
-          {!showFormOnly && (
-            <div className="pt-3 pb-2">
-              <p className="text-[12px] font-light tracking-wide lg:text-sm">
-                Choose An Agent to Talk To Live
-              </p>
-              <div>
-                <ul className="flex justify-evenly gap-4 py-2 pt-4 xl:gap-6">
-                  {agentsData.map((agent, index) => (
-                    <li
-                      onClick={() => setSelectedCharacter(agent)}
-                      key={index}
-                      className={cn(
-                        'inline-block cursor-pointer transition-all duration-300 ease-in-out',
-                        'opacity-60 hover:scale-115 hover:opacity-100',
-                        selectedCharacter?.name === agent.name
-                          ? 'scale-115 opacity-100'
-                          : '',
-                      )}
-                    >
-                      <div>
-                        <Image
-                          className="size-full object-cover"
-                          src={agent.img}
-                          width={100}
-                          height={100}
-                          alt="character"
-                        />
-                      </div>
-                      <span className="dark:text-clrText text-clrTextLight block pt-1 text-center text-xs">
-                        {agent.name}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className="pt-3 pb-2">
+            <p className="text-[12px] font-light tracking-wide lg:text-sm">
+              Choose An Agent to Talk To Live
+            </p>
+            <div>
+              <ul className="flex justify-evenly gap-4 py-2 pt-4 xl:gap-6">
+                {agentsData.map((agent, index) => (
+                  <li
+                    onClick={() => {
+                      setSelectedAgentId(agent.id);
+                    }}
+                    key={index}
+                    className={cn(
+                      'inline-block cursor-pointer transition-all duration-300 ease-in-out',
+                      'opacity-60 hover:scale-115 hover:opacity-100',
+                      selectedAgentId === agent.id
+                        ? 'scale-115 opacity-100'
+                        : '',
+                    )}
+                  >
+                    <div>
+                      <Image
+                        className="size-full object-cover"
+                        src={agent.img}
+                        width={100}
+                        height={100}
+                        alt="character"
+                      />
+                    </div>
+                    <span className="dark:text-clrText block pt-1 text-center text-sm text-black">
+                      {agent.name}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          )}
+          </div>
 
           <hr className="text-clrDawnyGreen mb-4" />
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-              <FormField
-                control={form.control}
-                name="fullName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-nunito text-sm font-light">
-                      Full Name
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        className="font-nunito h-11 text-sm"
-                        placeholder="Your Full Name"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="text-xs font-light" />
-                  </FormItem>
-                )}
-              />
+            <form
+              id="try_ai_agent_form"
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="relative space-y-3"
+            >
+              {isSubmitting && (
+                <Loader className="absolute top-1/3 left-1/2 size-10 -translate-x-1/2 -translate-y-1/2 animate-spin" />
+              )}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="firstName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-nunito text-sm">
+                        First Name
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isSubmitting}
+                          className="font-nunito border-clrTextLight h-11 text-sm"
+                          placeholder="Your First Name"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs font-light" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-nunito text-sm">
+                        Last Name
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isSubmitting}
+                          className="font-nunito border-clrTextLight h-11 text-sm"
+                          placeholder="Your Last Name"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs font-light" />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-nunito text-sm font-light">
+                    <FormLabel className="font-nunito text-sm">
                       Email Address
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="h-11 text-sm"
+                        disabled={isSubmitting}
+                        className="border-clrTextLight h-11 text-sm"
                         placeholder="Your Email Address"
                         {...field}
                       />
@@ -240,13 +318,14 @@ export default function CustomModal({
                 name="phoneNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-nunito text-sm font-light">
+                    <FormLabel className="font-nunito text-sm">
                       Phone Number
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="h-11 text-sm"
-                        placeholder="your Phone Number"
+                        disabled={isSubmitting}
+                        className="border-clrTextLight h-11 text-sm"
+                        placeholder="Your Phone Number"
                         {...field}
                       />
                     </FormControl>
@@ -254,26 +333,127 @@ export default function CustomModal({
                   </FormItem>
                 )}
               />
+              <div>
+                <FormField
+                  control={form.control}
+                  name="source"
+                  render={({ field }) => (
+                    <FormItem className="">
+                      <FormLabel className="font-nunito text-sm">
+                        How did you hear about us?
+                      </FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl className="w-full text-sm">
+                          <SelectTrigger
+                            disabled={isSubmitting}
+                            className="border-clrTextLight data-[size=default]:h-11"
+                          >
+                            <SelectValue
+                              className=""
+                              placeholder="Select an option"
+                            />
+                          </SelectTrigger>
+                        </FormControl>
 
-              {/* <button
-                type="submit"
-                className="relative mt-8 h-10 w-full rounded-sm"
-              >
-                <div className="absolute top-0 left-0 h-10 w-full rounded-sm bg-linear-70 from-[#5cd9ba] to-[#81b5e9]" />
-                <div className="font-roboto text-clrZeusDark absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-start text-base font-normal">
-                  Get Started
-                </div>
-              </button> */}
-              <Button className="group relative mt-3 h-11 w-full cursor-pointer rounded-sm p-[2px]">
-                <div className="from-clrDawnyGreen/85 to-clrDenimBlue/85 group-hover:to-clrDenimBlue group-hover:from-clrDawnyGreen absolute inset-0 rounded-sm bg-linear-53" />
-                <span className="text-clrZeusDark pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  Get Started
-                </span>
-              </Button>
+                        <SelectContent className="dark:bg-clrBlackPearl dark:text-clrText text-clrTextLight bg-white">
+                          {[
+                            { value: 'google', label: 'Google Search' },
+                            { value: 'social_media', label: 'Social Media' },
+                            { value: 'friend', label: 'Friend or Family' },
+                            { value: 'advertisement', label: 'Advertisement' },
+                            { value: 'event', label: 'Event or Conference' },
+                            { value: 'other', label: 'Other' },
+                          ].map((item) => (
+                            <SelectItem
+                              key={item.value}
+                              value={item.value}
+                              className="dark:hover:bg-clrTextLight/10 hover:bg-clrTextLight/10 px-4 py-3 text-base"
+                            >
+                              {item.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage className="text-xs font-light" />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="companyName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-nunito text-sm">
+                        Company Name (optional)
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isSubmitting}
+                          className="font-nunito border-clrTextLight h-11 text-sm"
+                          placeholder="Your Company Name"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs font-light" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="jobTitle"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-nunito text-sm">
+                        Job Title (optional)
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isSubmitting}
+                          className="font-nunito border-clrTextLight h-11 text-sm"
+                          placeholder="Your Job Title"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-xs font-light" />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="mt-4 grid grid-cols-2 gap-4">
+                <button
+                  disabled={isSubmitting}
+                  type="submit"
+                  className="font-roboto group relative h-11 w-full cursor-pointer rounded-sm transition-opacity duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-20"
+                >
+                  <span className="from-clrDawnyGreen/95 to-clrDenimBlue/95 hover:to-clrDenimBlue hover:from-clrDawnyGreen absolute inset-0 rounded-sm bg-linear-53" />
+                  <div className="text-clrZeusDark pointer-events-none absolute top-1/2 flex w-full -translate-y-1/2 items-center justify-center gap-2">
+                    <Mic className="size-5" />
+                    <span className="">Try AI Agent Now</span>
+                  </div>
+                </button>
+
+                <button
+                  disabled={isSubmitting}
+                  onClick={handleCallOnPhone}
+                  type="button"
+                  className="group from-clrDawnyGreen to-clrDenimBlue relative inline-block h-11 w-full cursor-pointer rounded-sm bg-linear-90 p-[2px] disabled:cursor-not-allowed disabled:opacity-20"
+                >
+                  <div className="dark:text-clrText text-clrTextLight font-roboto dark:bg-clrBlackPearl dark:group-hover:bg-clrBlackPearl/70 flex h-full w-full items-center justify-center gap-2 rounded-sm bg-white transition-colors duration-300 ease-in-out group-hover:bg-white/80 group-hover:backdrop-blur-2xl">
+                    <Phone className="size-5" />
+                    <span className="">Get a Call</span>
+                  </div>
+                </button>
+              </div>
             </form>
           </Form>
         </div>
-      </DialogContent>
-    </Dialog>
+      </ResponsiveModalContent>
+    </ResponsiveModal>
   );
 }

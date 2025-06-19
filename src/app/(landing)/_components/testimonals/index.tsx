@@ -4,30 +4,8 @@ import { ClassValue } from 'clsx';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 import * as variants from '@/lib/motion-variants';
-
-interface ITestimonal {
-  name: string;
-  text: string;
-  company: string;
-}
-
-const testimonalsData = [
-  {
-    name: 'Emily Johnson',
-    text: "Our hiring process has transformed since we started using this AI solution. We've reduced our time-to-hire by 50% and found candidates who fit our culture perfectly!",
-    company: 'Tech Innovators Inc.',
-  },
-  {
-    name: 'Emily Johnson',
-    text: "Our hiring process has transformed since we started using this AI solution. We've reduced our time-to-hire by 50% and found candidates who fit our culture perfectly!",
-    company: 'Tech Innovators Inc.',
-  },
-  {
-    name: 'Emily Johnson',
-    text: "Our hiring process has transformed since we started using this AI solution. We've reduced our time-to-hire by 50% and found candidates who fit our culture perfectly!",
-    company: 'Tech Innovators Inc.',
-  },
-];
+import { testimonalsData } from '@/constants/data';
+import { ITestimonal } from '@/types';
 
 export default function Testimonals({
   className,
@@ -42,13 +20,13 @@ export default function Testimonals({
         className,
       )}
     >
-      <div className="dark:text-clrText text-clrTextLight container mx-auto">
+      <div className="dark:text-clrText text-clrTextLight container mx-auto space-y-5">
         <motion.h1
           variants={variants.fadeInUp}
           initial="start"
           whileInView="end"
           viewport={{ once: true }}
-          className="font-nunito xs:leading-[52px] xs:text-[44px] mx-auto mb-4 max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
+          className="font-nunito xs:leading-[52px] xs:text-[44px] mx-auto max-w-[753px] text-center text-[40px] leading-[52px] font-bold capitalize sm:text-5xl"
         >
           Testimonials from Clients Who Transformed Their Hiring
         </motion.h1>
@@ -58,13 +36,13 @@ export default function Testimonals({
           initial="start"
           whileInView="end"
           viewport={{ once: true }}
-          className="font-roboto mx-auto max-w-xl px-2 text-center font-light tracking-wide"
+          className="font-roboto mx-auto max-w-2xl px-2 text-center text-xl leading-[32px] font-light tracking-wide"
         >
           See how our AI solutions have reshaped recruitment experiences for
           businesses like yours.
         </motion.p>
       </div>
-      <div className="relative container mx-auto mt-14 overflow-hidden py-8 xl:px-[1%]">
+      <div className="relative container mx-auto mt-14 overflow-hidden py-8 md:mt-20 xl:px-[1%]">
         {/* Gradient edge masks */}
         <div className="dark:from-clrBlackPearl dark:via-clrBlackPearl/70 pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white via-white/20 to-transparent" />
         <div className="dark:from-clrBlackPearl dark:via-clrBlackPearl/70 pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white via-white/20 to-transparent" />
@@ -133,11 +111,11 @@ function TestimonalCard({ item }: { item: ITestimonal }) {
         />
       </div>
       <div className="dark:text-clrText text-clrTextLight z-10">
-        <p className="font-robot text-center text-sm font-light">{name}</p>
-        <p className="font-nunito mx-auto mt-6 mb-6 max-w-xl text-center text-[18px] leading-[28px] md:max-w-2xl">
+        <p className="font-robot text-center font-light">{name}</p>
+        <p className="font-nunito mx-auto mt-6 mb-6 max-w-xl text-center text-lg leading-[28px] md:max-w-2xl">
           {`"${text}"`}
         </p>
-        <p className="font-roboto text-center text-sm font-light">{company}</p>
+        <p className="font-roboto text-center font-light">{company}</p>
       </div>
     </div>
   );

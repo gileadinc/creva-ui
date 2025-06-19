@@ -5,6 +5,13 @@ import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
+import { useAppStore } from '@/store/useAppStore';
+import { useRouter } from 'next/navigation';
+import {
+  MatomoAction,
+  MatomoCategory,
+  trackMatomoEvent,
+} from '@/lib/matomo-utils';
 
 const navbarLinks = [
   {
@@ -35,6 +42,8 @@ export default function Navbar({
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
+  const router = useRouter();
+  const { isModalOpen } = useAppStore();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
 
@@ -93,10 +102,22 @@ export default function Navbar({
     if (isMobileNavOpen) {
       closeMenu();
     }
+
+    trackMatomoEvent(
+      MatomoCategory.Link,
+      MatomoAction.Clicked,
+      `Header Navbar link: ${id}`,
+    );
   };
 
   return (
-    <div className={cn('fixed z-100 w-full px-[3%]', className)}>
+    <div
+      className={cn(
+        'fixed z-100 w-full px-[3%]',
+        isModalOpen && 'hidden',
+        className,
+      )}
+    >
       <header
         ref={mobileNavRef}
         className={cn(
@@ -120,7 +141,7 @@ export default function Navbar({
               {navbarLinks.map(({ name, href }, idx) => (
                 <li
                   onClick={() => handleClick(href)}
-                  className="dark:text-clrText text-clrTextLight font-roboto dark:hover:text-clrDawnyGreen cursor-pointer transition-colors duration-300 ease-in-out hover:text-black"
+                  className="dark:text-clrText text-clrTextLight font-roboto dark:hover:text-clrDawnyGreen cursor-pointer text-lg transition-colors duration-300 ease-in-out hover:text-black"
                   key={idx}
                 >
                   {name}
@@ -128,9 +149,19 @@ export default function Navbar({
               ))}
             </ul>
           </nav>
-          <button className="group relative hidden h-8 w-32 cursor-pointer text-sm font-medium transition-colors duration-300 ease-in-out lg:block">
-            <div className="absolute top-0 left-0 -z-10 h-8 w-32 rounded-[35px] bg-linear-48 from-[#5cd9ba] to-[#81b5e9]" />
-            <span className="dark:text-clrText dark:bg-clrFirefly font-roboto dark:group-hover:bg-clrFirefly/70 text-clrTextLight absolute top-1/2 left-1/2 grid h-[28.5px] w-[123px] -translate-x-1/2 -translate-y-1/2 place-content-center rounded-[35px] bg-white text-sm font-light capitalize transition-colors duration-300 ease-in-out group-hover:bg-white/80 group-hover:backdrop-blur-xl">
+          <button
+            onClick={() => {
+              trackMatomoEvent(
+                MatomoCategory.Navigation,
+                MatomoAction.Clicked,
+                'Navbar Sign Up Button',
+              );
+              router.push('/sign-up');
+            }}
+            className="group relative hidden h-10 w-32 cursor-pointer font-medium transition-colors duration-300 ease-in-out lg:block"
+          >
+            <div className="absolute top-0 left-0 -z-10 h-10 w-32 rounded-[35px] bg-linear-48 from-[#5cd9ba] to-[#81b5e9]" />
+            <span className="dark:text-clrText dark:bg-clrFirefly font-roboto dark:group-hover:bg-clrFirefly/70 text-clrTextLight absolute top-1/2 left-1/2 grid h-[36px] w-[123px] -translate-x-1/2 -translate-y-1/2 place-content-center rounded-[35px] bg-white font-medium capitalize transition-colors duration-300 ease-in-out group-hover:bg-white/80 group-hover:backdrop-blur-xl">
               Sign Up
             </span>
           </button>
@@ -185,7 +216,12 @@ export default function Navbar({
               ))}
             </ul>
 
-            <button className="group relative h-10 w-full cursor-pointer text-sm font-medium text-white transition-colors duration-300 ease-in-out">
+            <button
+              onClick={() => {
+                router.push('/sign-up');
+              }}
+              className="group relative h-10 w-full cursor-pointer text-sm font-medium text-white transition-colors duration-300 ease-in-out"
+            >
               <div className="absolute top-0 left-0 -z-10 h-10 w-full rounded-[35px] bg-linear-48 from-[#5cd9ba] to-[#81b5e9]" />
               <span className="text-clrText bg-clrFirefly font-roboto group-hover:bg-clrFirefly/70 absolute top-1/2 left-1/2 grid h-[34px] w-[calc(100%-4px)] -translate-x-1/2 -translate-y-1/2 place-content-center rounded-[35px] text-sm font-light capitalize transition-colors duration-300 ease-in-out group-hover:backdrop-blur-xl">
                 Sign Up
