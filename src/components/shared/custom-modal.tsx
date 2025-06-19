@@ -144,8 +144,10 @@ export default function CustomModal({
   const handleCallOnPhone = async () => {
     if (isSubmitting) return;
     // validate form before proceeding
-    await form.trigger();
-
+    const isValid = await form.trigger();
+    if (!isValid) {
+      return;
+    }
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 4000));
     toast.success('Thank you for your interest!', {
