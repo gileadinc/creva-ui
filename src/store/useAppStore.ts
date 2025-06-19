@@ -11,6 +11,7 @@ interface DemoState {
   isCtaDialogOpen: boolean;
   modalContext: 'agentInteraction' | 'tryLive' | null;
   isTryLiveOn: boolean;
+  isTryLiveModalFirstOpen: boolean;
 }
 
 interface DemoActions {
@@ -23,6 +24,7 @@ interface DemoActions {
   //
   setIsCharacterTalking: (isTalking: boolean) => void;
   setIsTryLiveOn: (isOn: boolean) => void;
+  setIsTryLiveModalFirstOpen: (isOpen: boolean) => void;
 }
 
 export const useAppStore = create<DemoState & DemoActions>((set, get) => ({
@@ -33,6 +35,7 @@ export const useAppStore = create<DemoState & DemoActions>((set, get) => ({
   isTryLiveOn: false,
   isCtaDialogOpen: false,
   modalContext: null,
+  isTryLiveModalFirstOpen: false,
 
   // Actions
   openModal: (context = 'agentInteraction') => {
@@ -54,4 +57,6 @@ export const useAppStore = create<DemoState & DemoActions>((set, get) => ({
 
   setIsCharacterTalking: (isTalking) => set({ isCharacterTalking: isTalking }),
   setIsTryLiveOn: (isOn) => set({ isTryLiveOn: isOn }),
+  setIsTryLiveModalFirstOpen: (isOpen) =>
+    set({ isTryLiveModalFirstOpen: isOpen }),
 }));

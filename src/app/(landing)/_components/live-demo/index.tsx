@@ -23,7 +23,13 @@ export default function LiveDemo({
   className?: React.CSSProperties | ClassValue | string;
 }) {
   const { timeExceeded } = useTimer();
-  const { openModal, isTryLiveOn, setIsTryLiveOn } = useAppStore();
+  const {
+    openModal,
+    isTryLiveOn,
+    setIsTryLiveOn,
+    isTryLiveModalFirstOpen,
+    setIsTryLiveModalFirstOpen,
+  } = useAppStore();
 
   const router = useRouter();
 
@@ -49,13 +55,16 @@ export default function LiveDemo({
       router.push('/sign-in');
       return;
     }
-    if (!isTryLiveOn) {
+    if (!isTryLiveModalFirstOpen) {
       openModal('tryLive');
+      setIsTryLiveModalFirstOpen(true);
       trackMatomoEvent(
         MatomoCategory.Modal,
         MatomoAction.Opened,
         'Expeiance AI Agent Interaction Modal (TryLive Section)',
       );
+    } else {
+      setIsTryLiveOn(true);
     }
   };
 
