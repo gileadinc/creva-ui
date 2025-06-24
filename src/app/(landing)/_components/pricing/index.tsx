@@ -118,7 +118,7 @@ function PricingCard({
           {features.map((feature, idx) => (
             <li className="relative" key={idx}>
               <span className="absolute w-[10px] text-green-500">{'✓'}</span>
-              <span className="ml-[20px] block font-light opacity-[80%]">
+              <span className="ml-[20px] block opacity-[90%] sm:font-light sm:opacity-[80%]">
                 {feature}
               </span>
             </li>

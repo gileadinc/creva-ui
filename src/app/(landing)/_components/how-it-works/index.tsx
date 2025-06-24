@@ -172,7 +172,7 @@ function WorkFlowStep({
 function PostUI() {
   return (
     <div className="dark:bg-clrBlackPearl absolute inset-0 overflow-hidden rounded-xl bg-white backdrop-blur-lg">
-      <div className="size-full w-[90%]">
+      <div className="size-full md:w-[90%]">
         <Image
           className="size-full rounded-xl opacity-80"
           alt="postjob"
@@ -278,7 +278,7 @@ function ScreenUI() {
 
   return (
     <div className="absolute inset-0 size-full">
-      <div className="flex size-full flex-col justify-center gap-12">
+      <div className="flex size-full flex-col justify-center gap-4 sm:gap-8 md:gap-12">
         {/* Icon with pulsing ring */}
         <div className="relative mt-16 w-full">
           <div className="relative mx-auto size-16">
