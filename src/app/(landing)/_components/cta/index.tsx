@@ -4,26 +4,26 @@ import { ClassValue } from 'clsx';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 import * as variants from '@/lib/motion-variants';
-import { useAppStore } from '@/store/useAppStore';
+
 import {
   MatomoAction,
   MatomoCategory,
   trackMatomoEvent,
 } from '@/lib/matomo-utils';
+import { useRouter } from 'next/navigation';
 export default function Cta({
   className,
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
-  const { openCtaDialog } = useAppStore();
+  const router = useRouter();
   const handleGetStartedForFreeClick = () => {
     trackMatomoEvent(
       MatomoCategory.Button,
       MatomoAction.Clicked,
       'Get Started For Free Button (CTA)',
     );
-    openCtaDialog();
-    trackMatomoEvent(MatomoCategory.Modal, MatomoAction.Opened, 'CTA Pop Up');
+    router.push('/sign-up');
   };
 
   return (
