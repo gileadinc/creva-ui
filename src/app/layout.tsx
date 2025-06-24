@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
-import { ThemeProvider } from '@/context/theme-providers';
 import './globals.css';
-import Matomo from '@/components/matomo-analytics';
-import { Toaster } from '@/components/ui/sonner';
+import { openSans, raleway, roboto } from '@/fonts';
+import { ThemeProvider } from '@/providers/theme-provider';
 import ReactLenisProvider from '@/components/react-lenis';
-import { nunito, roboto } from '@/fonts';
-
+import ToasterProvider from '@/providers/toaster-provider';
 export const metadata: Metadata = {
   title: 'Creva',
   description: 'Your AI-powered assistant for Hiring Managers',
@@ -19,6 +17,7 @@ export const metadata: Metadata = {
   },
   manifest: '/site.webmanifest',
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${roboto.variable} ${nunito.variable} overflow-x-hidden scroll-smooth antialiased`}
+        className={`${openSans.variable} ${roboto.variable} ${raleway.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -36,11 +35,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-
-          <Toaster className="dark:bg-clrBlackPearl bg-clrAquaHaze text-clrTextLight dark:text-clrText" />
-          <ReactLenisProvider />
         </ThemeProvider>
-        <Matomo />
+        <ToasterProvider />
+        <ReactLenisProvider />
       </body>
     </html>
   );

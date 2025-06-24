@@ -8,7 +8,7 @@ export default function TikTokIcon({
 }) {
   return (
     <svg
-      className={cn('text-[#494e59] opacity-40 dark:text-[#F0F0F0]', className)}
+      className={cn('text-[#494e59] dark:text-[#F0F0F0]', className)}
       width="30"
       height="30"
       viewBox="0 0 30 30"

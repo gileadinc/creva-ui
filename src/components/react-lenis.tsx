@@ -1,4 +1,5 @@
 'use client';
+
 import { useAppStore } from '@/store/useAppStore';
 import ReactLenis from 'lenis/react';
 

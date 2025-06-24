@@ -4,27 +4,36 @@
 
 /* custom */
 @theme {
-  /* light */
-  --color-clrAquaHaze: #f3f3f3;
-  --color-clrTextLight: #494e59;
-  --color-clrSeaShell: #f0f0f0;
+  /* colors */
+
+  --color-clrBrand: #087e8b;
+
   /* dark */
-  --color-clrBlackPearl: #0b132b;
-  --color-clrFirefly: #141d38;
-  --color-clrMirage: #0d1327;
-  --color-clrMidNightDark: #0f1730;
-  --color-clrZeusDark: #1c1d1d;
-  --color-clrText: #f0f0f0;
-  --color-clrTelishBlue: #122037;
-  --color-clrCaribbeanGreen: #00cc99;
-  --color-clrDawnyGreen: #5cd9ba;
-  --color-clrCyanBlue: #3c91e6;
-  --color-clrDenimBlue: #81b5e9;
+  --color-clrTextLight: #d8f2f5;
+  --color-clrCinder: #151515;
+  --color-clrOnyx: #0e0e0e;
+  --color-clrBalticSea: #2a2a2a;
+  --color-clrWoodsmoke: #0c0c0c;
+  /* light */
+  --color-clrTextDark: #494e59;
+  --color-clrSeaShell: #f0f0f0;
 
+  /* fonts */
+  --font-opensans: var(--font-open-sans);
+  --font-raleway: var(--font-raleway);
   --font-roboto: var(--font-roboto);
-  --font-nunito: var(--font-nunito);
 
+  /* screen size */
   --breakpoint-xs: 475px;
+
+  --animate-scroll: scroll var(--animation-duration, 40s)
+    var(--animation-direction, forwards) linear infinite;
+
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
 }
 
 @custom-variant dark (&:is(.dark *));
@@ -140,9 +149,12 @@
 
 @layer base {
   /* * {
-    @apply border-border outline-ring/50;
-  } */
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+    } */
   body {
-    @apply font-roboto size-full scroll-smooth;
+    @apply font-raleway size-full scroll-smooth;
   }
 }

@@ -1,17 +1,20 @@
 import CtaPopUpModal from '@/components/shared/cta-popup-modal';
 import { CTATrigger } from '@/components/shared/cta-trigger';
-import CustomModal from '@/components/shared/custom-modal';
+import MaskImage from '@/components/shared/mask-image';
+import ModalForm from '@/components/shared/modal-form';
+
 export default function LandingLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="size-full">
+    <section className="relative">
       {children}
-      <CustomModal />
-      <CtaPopUpModal />
+      <MaskImage className="pointer-events-none" />
+      <ModalForm />
       <CTATrigger />
-    </div>
+      <CtaPopUpModal />
+    </section>
   );
 }

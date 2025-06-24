@@ -1,35 +1,39 @@
 'use client';
+import MenuIcon from '@/components/icons/menu-icon';
+// import MaskImage from '@/components/shared/mask-image';
 import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
 import Image from 'next/image';
-import { Menu, X } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
-import { useOnClickOutside } from 'usehooks-ts';
+import { useEffect, useState } from 'react';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+// import MaskImage from '@/components/shared/mask-image';
+import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/store/useAppStore';
 import { useRouter } from 'next/navigation';
-import {
-  MatomoAction,
-  MatomoCategory,
-  trackMatomoEvent,
-} from '@/lib/matomo-utils';
-
-const navbarLinks = [
+const navLinks = [
   {
     name: 'Features',
     href: 'features',
   },
   {
-    name: 'Pricing',
-    href: 'pricing',
+    name: 'AI Agents',
+    href: 'ai-agents',
   },
-
+  {
+    name: 'Process',
+    href: 'process',
+  },
   {
     name: 'Testimonials',
     href: 'testimonials',
   },
   {
-    name: 'How it works',
-    href: 'howitworks',
+    name: 'Pricing',
+    href: 'pricing',
   },
   {
     name: 'FAQ',
@@ -37,39 +41,23 @@ const navbarLinks = [
   },
 ];
 let lastScrollTop = 0;
-export default function Navbar({
+export default function NavBar({
   className,
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
-  const router = useRouter();
   const { isModalOpen } = useAppStore();
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-
-  const closeMenu = () => setIsMobileNavOpen(false);
-  const openMenu = () => setIsMobileNavOpen(true);
-
-  const mobileNavRef = useRef<HTMLElement>(
-    null,
-  ) as React.RefObject<HTMLElement>;
-
-  const handleClickOutside = () => {
-    closeMenu();
-  };
-
-  useOnClickOutside(mobileNavRef, handleClickOutside);
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     const handleScroll = () => {
-      if (isMobileNavOpen) {
-        setIsNavbarVisible(true);
-        return;
-      }
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
+
       if (scrollTop > lastScrollTop) {
         setIsNavbarVisible(false);
+        setIsMobileMenuOpen(false);
       } else if (scrollTop < lastScrollTop) {
         setIsNavbarVisible(true);
       }
@@ -79,157 +67,113 @@ export default function Navbar({
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isMobileNavOpen]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setIsMobileNavOpen(false);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
-  const handleClick = (id: string) => {
+  const handleScrollToTarget = (id: string) => {
     const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
 
-    if (isMobileNavOpen) {
-      closeMenu();
+    if (isMobileMenuOpen) {
+      // close it.
     }
-
-    trackMatomoEvent(
-      MatomoCategory.Link,
-      MatomoAction.Clicked,
-      `Header Navbar link: ${id}`,
-    );
   };
 
   return (
     <div
       className={cn(
-        'fixed z-100 w-full px-[3%]',
+        'fixed z-[999] h-[100px] w-full',
         isModalOpen && 'hidden',
         className,
       )}
     >
       <header
-        ref={mobileNavRef}
         className={cn(
-          isNavbarVisible ? 'top-0' : '-top-[100px]',
-          isMobileNavOpen
-            ? 'rounded-b-none'
-            : 'dark:bg-clrFirefly/80 bg-clrAquaHaze/40 rounded-xl backdrop-blur-xl',
-          'relative m-4 mx-auto flex h-[65px] max-w-7xl items-center rounded-xl transition-all duration-300 ease-in',
+          'absolute w-full transition-all duration-300 ease-in-out',
+          isNavbarVisible ? 'bottom-0' : 'bottom-100',
         )}
       >
-        <div className="z-90 flex w-full items-center justify-between gap-4 px-[2%]">
-          <Image
-            className="cursor-pointer"
-            src={'/assets/svg/creva-logo.svg'}
-            width={120}
-            height={120}
-            alt="creva logo"
-          />
-          <nav className="hidden lg:block">
-            <ul className="flex flex-1 sm:gap-6 md:gap-10 lg:gap-14">
-              {navbarLinks.map(({ name, href }, idx) => (
-                <li
-                  onClick={() => handleClick(href)}
-                  className="dark:text-clrText text-clrTextLight font-roboto dark:hover:text-clrDawnyGreen cursor-pointer text-lg transition-colors duration-300 ease-in-out hover:text-black"
-                  key={idx}
+        <div className="container mx-auto flex size-full max-w-[1360px] items-center">
+          <div className="mx-[3%] flex w-full items-center justify-between rounded-md px-[1%] py-3 backdrop-blur-xl">
+            <div className="w-[118px]">
+              <Image
+                className="size-full cursor-pointer object-contain"
+                src={'/assets/svg/creva-logo.svg'}
+                width={100}
+                height={100}
+                alt="creva logo"
+              />
+            </div>
+            <nav className="hidden flex-1 lg:block">
+              <ul className="flex justify-center gap-10">
+                {navLinks.map(({ name, href }, idx) => (
+                  <li
+                    onClick={() => handleScrollToTarget(href)}
+                    className="dark:text-clrTextLight hover:text-clrBrand cursor-pointer px-2 py-2 text-center text-[16px]"
+                    key={idx}
+                  >
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div>
+              {/* MOBILE NAV START*/}
+              <Popover
+                open={isMobileMenuOpen}
+                onOpenChange={setIsMobileMenuOpen}
+              >
+                <PopoverTrigger className="block lg:hidden">
+                  <MenuIcon className="block size-8 cursor-pointer lg:hidden" />
+                </PopoverTrigger>
+                <PopoverContent
+                  align="end"
+                  className="dark:bg-clrWoodsmoke/10 dark:border-clrBrand/40 border-clrTextDark/40 bg-clrSeaShell/10 mt-5 block border shadow-xl backdrop-blur-lg lg:hidden"
                 >
-                  {name}
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <button
-            onClick={() => {
-              trackMatomoEvent(
-                MatomoCategory.Navigation,
-                MatomoAction.Clicked,
-                'Navbar Sign Up Button',
-              );
-              router.push('/sign-up');
-            }}
-            className="group relative hidden h-10 w-32 cursor-pointer font-medium transition-colors duration-300 ease-in-out lg:block"
-          >
-            <div className="absolute top-0 left-0 -z-10 h-10 w-32 rounded-[35px] bg-linear-48 from-[#5cd9ba] to-[#81b5e9]" />
-            <span className="dark:text-clrText dark:bg-clrFirefly font-roboto dark:group-hover:bg-clrFirefly/70 text-clrTextLight absolute top-1/2 left-1/2 grid h-[36px] w-[123px] -translate-x-1/2 -translate-y-1/2 place-content-center rounded-[35px] bg-white font-medium capitalize transition-colors duration-300 ease-in-out group-hover:bg-white/80 group-hover:backdrop-blur-xl">
-              Sign Up
-            </span>
-          </button>
+                  <ul className="dark:bg-clrWoodsmoke/40 bg-clrSeaShell/40 z-[9999] w-full space-y-2 backdrop-blur-2xl">
+                    {navLinks.map(({ name, href }, idx) => (
+                      <li
+                        key={idx}
+                        onClick={() => handleScrollToTarget(href)}
+                        className="hover:text-clrBrand cursor-pointer py-2 text-center"
+                      >
+                        {name}
+                      </li>
+                    ))}
+                    <Button
+                      onClick={() => {
+                        router.push('/sign-up');
+                      }}
+                      className="mx-auto block h-full w-[90%] cursor-pointer rounded-md"
+                      variant={'brandOutline'}
+                    >
+                      <span className="font-opensans text-base font-normal">
+                        Sign Up
+                      </span>
+                    </Button>
+                  </ul>
+                </PopoverContent>
+              </Popover>
 
-          {/* mobile menu button */}
-          <div className="relative h-8 w-8 lg:hidden">
-            <span
-              onClick={openMenu}
-              className={cn(
-                'absolute inset-0 transition-all duration-300 ease-in-out',
-                isMobileNavOpen
-                  ? 'pointer-events-none scale-90 opacity-0'
-                  : 'scale-100 opacity-100',
-              )}
-            >
-              <Menu className="text-clrTextLight size-8 cursor-pointer dark:text-white" />
-            </span>
-            <span
-              onClick={closeMenu}
-              className={cn(
-                'absolute inset-0 transition-all duration-300 ease-in-out',
-                isMobileNavOpen
-                  ? 'scale-100 opacity-100'
-                  : 'pointer-events-none scale-90 opacity-0',
-              )}
-            >
-              <X className="text-clrTextLight size-8 cursor-pointer dark:text-white" />
-            </span>
+              {/* MOBILE NAV END*/}
+
+              <Button
+                onClick={() => {
+                  router.push('/sign-up');
+                }}
+                className="hidden h-11 w-36 cursor-pointer rounded-full lg:block"
+                variant={'brandOutline'}
+              >
+                <span className="font-opensans text-lg font-normal">
+                  Sign Up
+                </span>
+              </Button>
+            </div>
           </div>
         </div>
-
-        {/* MOBILE NAV */}
-        <div
-          className={cn(
-            isMobileNavOpen
-              ? 'pointer-events-auto opacity-100'
-              : 'pointer-events-none opacity-0',
-            'dark:bg-clrFirefly/60 bg-clrAquaHaze/20 absolute top-0 h-[410px] w-full rounded-xl px-[2%] backdrop-blur-xl transition-all duration-300 ease-in lg:hidden',
-          )}
-        >
-          <div className="h-[55px]"></div>
-          <nav className="mb-2 block rounded-b-xl px-2 py-2 lg:hidden">
-            <ul className="mb-4 flex flex-col gap-4">
-              {navbarLinks.map(({ name, href }, idx) => (
-                <li
-                  onClick={() => handleClick(href)}
-                  className="dark:text-clrText text-clrTextLight cursor-pointer py-2 text-center transition-colors duration-300 ease-in-out hover:text-black dark:hover:text-[#5cd9ba]"
-                  key={idx}
-                >
-                  {name}
-                </li>
-              ))}
-            </ul>
-
-            <button
-              onClick={() => {
-                router.push('/sign-up');
-              }}
-              className="group relative h-10 w-full cursor-pointer text-sm font-medium text-white transition-colors duration-300 ease-in-out"
-            >
-              <div className="absolute top-0 left-0 -z-10 h-10 w-full rounded-[35px] bg-linear-48 from-[#5cd9ba] to-[#81b5e9]" />
-              <span className="text-clrText bg-clrFirefly font-roboto group-hover:bg-clrFirefly/70 absolute top-1/2 left-1/2 grid h-[34px] w-[calc(100%-4px)] -translate-x-1/2 -translate-y-1/2 place-content-center rounded-[35px] text-sm font-light capitalize transition-colors duration-300 ease-in-out group-hover:backdrop-blur-xl">
-                Sign Up
-              </span>
-            </button>
-          </nav>
-        </div>
       </header>
+      {/* <MaskImage className="opacity-20" /> */}
     </div>
   );
 }

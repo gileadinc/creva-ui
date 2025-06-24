@@ -1,38 +1,34 @@
-import { ModeToggle } from '@/components/toggle-theme-icon';
-import CharacterCreation from './_components/characters-creation';
-import Cta from './_components/cta';
-import Faq from './_components/faq';
-import Features from './_components/features';
-import Footer from './_components/footer';
+import { ThemeToggleBtn } from '@/components/theme-toggle-btn';
 import Hero from './_components/hero';
-import HowItWorks from './_components/how-it-works';
-import LiveDemo from './_components/live-demo';
-import Navbar from './_components/navbar';
+
 import Partners from './_components/partners';
-import Pricing from './_components/pricing';
+import Features from './_components/features';
+import ATSIntegration from './_components/ats-integration';
+import AIAgents from './_components/ai-agents';
+import Process from './_components/process';
 import Testimonals from './_components/testimonals';
-import VoiceAgentDemo from './_components/voice-agent-demo';
+import Pricing from './_components/pricing';
+import Faq from './_components/faq';
+import Footer from './_components/footer';
+import Cta from './_components/cta';
+import NavBar from './_components/navbar';
 
 export default function LandingPage() {
   return (
-    <div
-      id="landing"
-      className="dark:bg-clrBlackPearl size-full overflow-x-hidden bg-white"
-    >
-      <ModeToggle className="fixed right-10 bottom-20 z-90" />
-      <Navbar />
+    <div className="dark:bg-clrWoodsmoke overflow-x-hidden bg-white">
+      <NavBar className="h-[100px]" />
       <Hero />
-      <CharacterCreation />
       <Partners />
       <Features />
-      <LiveDemo />
-      <Pricing />
+      <ATSIntegration />
+      <AIAgents />
+      <Process />
       <Testimonals />
-      <VoiceAgentDemo />
-      <HowItWorks />
+      <Pricing />
       <Faq />
       <Cta />
       <Footer />
+      <ThemeToggleBtn className="fixed bottom-10 left-10 z-[999]" />
     </div>
   );
 }
