@@ -175,7 +175,7 @@ export default function LiveTalk({
                     &#x23F0; Time&apos;s up!
                   </span> */}
                   <span className="font-opensans dark:text-clrTextLight text-clrTextDark text-sm font-semibold md:text-base">
-                    Sign in and get additional 30 min for free trial
+                    Sign in and enjoy 30 extra minutes of your free trial
                   </span>
                 </>
               ) : (
