@@ -12,23 +12,27 @@ import Faq from './_components/faq';
 import Footer from './_components/footer';
 import Cta from './_components/cta';
 import NavBar from './_components/navbar';
+import WorkFlow from './_components/workflow';
 
 export default function LandingPage() {
   return (
     <div className="dark:bg-clrWoodsmoke overflow-x-hidden bg-white">
       <NavBar className="h-[100px]" />
-      <Hero />
-      <Partners />
-      <Features />
-      <ATSIntegration />
-      <AIAgents />
-      <Process />
-      <Testimonals />
-      <Pricing />
-      <Faq />
-      <Cta />
-      <Footer />
-      <ThemeToggleBtn className="fixed bottom-10 left-10 z-[999]" />
+      <main className="max-sm:px-[3%]">
+        <Hero />
+        <Partners />
+        <Features />
+        <ATSIntegration />
+        <WorkFlow />
+        <AIAgents />
+        <Process />
+        <Testimonals />
+        <Pricing />
+        <Faq />
+        <Cta />
+        <Footer />
+        <ThemeToggleBtn className="fixed bottom-10 left-10 z-[999]" />
+      </main>
     </div>
   );
 }

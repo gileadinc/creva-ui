@@ -86,16 +86,24 @@ export default function NavBar({
         'fixed z-[999] h-[100px] w-full',
         isModalOpen && 'hidden',
         className,
+        !isNavbarVisible && 'pointer-events-none',
       )}
     >
       <header
         className={cn(
-          'absolute w-full transition-all duration-300 ease-in-out',
-          isNavbarVisible ? 'bottom-0' : 'bottom-100',
+          'absolute w-full',
+          'h-[120px]',
+          // isNavbarVisible ? 'bottom-0' : 'bottom-100',
         )}
       >
         <div className="container mx-auto flex size-full max-w-[1360px] items-center">
-          <div className="mx-[3%] flex w-full items-center justify-between rounded-md px-[1%] py-3 backdrop-blur-xl">
+          <div
+            className={cn(
+              'mx-[3%] flex w-full items-center justify-between rounded-md px-[1%] py-3 backdrop-blur-xl',
+              'transition-all duration-300 ease-linear',
+              isNavbarVisible ? 'opacity-100' : 'pointer-events-none opacity-0',
+            )}
+          >
             <div className="w-[118px]">
               <Image
                 className="size-full cursor-pointer object-contain"

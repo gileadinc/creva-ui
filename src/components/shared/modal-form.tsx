@@ -31,11 +31,12 @@ import {
   ResponsiveModalHeader,
   ResponsiveModalTitle,
 } from '../ui/responsive-modal';
-import { useState } from 'react';
+
 import toast from 'react-hot-toast';
 import { agentsData } from '@/constants/data';
 import { Button } from '../ui/button';
 import { PhoneInput } from '../ui/phone-input';
+import { useSubmitAiAgentForm } from '@/hooks/api/useSubmitAIAgentForm';
 
 const formSchema = z.object({
   firstName: z
@@ -63,7 +64,9 @@ export default function ModalForm({
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
+  const { mutateAsync: submitForm, isPending: isSubmitting } =
+    useSubmitAiAgentForm();
   const {
     isModalOpen,
     modalContext,
@@ -91,43 +94,58 @@ export default function ModalForm({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const data = {
       ...values,
+      howdidyouhearaboutus: values.source,
       agent: {
         id: 'agent-id',
       },
     };
-    setIsSubmitting(true);
-    // simulate a network request ...
-    await new Promise((resolve) => setTimeout(resolve, 4000));
 
-    console.log('Form submitted:', data);
-    toast.success('Form Submitted Successfully');
+    const payload = {
+      firstname: data.firstName,
+      lastname: data.lastName,
+      emailaddress: data.email,
+      phonenumber: data.phoneNumber,
+      howdidyouhearaboutus: data.howdidyouhearaboutus,
+      companyname: data.companyName || '',
+      jobtitle: data.jobTitle || '',
+    };
 
-    // create a web socket connection to API.
+    try {
+      // submit the form data to the API.
+      await submitForm(payload);
 
-    if (modalContext === 'redirectToLive') {
-      if (selectedAgentId) {
-        setIsTryLiveOn(true);
-        setIsAgentTalking(true);
-        // toast.loading('Connecting to AI Agent...');
-        // toast.success('You are now connected to the AI Agent');
+      toast.success('Form Submitted Successfully');
+
+      // create a web socket connection to API.
+
+      if (modalContext === 'redirectToLive') {
+        if (selectedAgentId) {
+          setIsTryLiveOn(true);
+          setIsAgentTalking(true);
+          // toast.loading('Connecting to AI Agent...');
+          // toast.success('You are now connected to the AI Agent');
+        }
+
+        // // scroll to live demo section.
+        const target = document.getElementById('ai-agents');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else if (modalContext === 'tryLive') {
+        if (selectedAgentId) {
+          setIsAgentTalking(true);
+          setIsTryLiveOn(true);
+          // toast.loading('Connecting to AI Agent...', { duration: 2000 });
+          // toast.success('You are now connected to the AI Agent');
+        }
       }
+      setTryLiveModalCount(tryLiveModalCount + 1);
 
-      // // scroll to live demo section.
-      const target = document.getElementById('ai-agents');
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else if (modalContext === 'tryLive') {
-      if (selectedAgentId) {
-        setIsAgentTalking(true);
-        setIsTryLiveOn(true);
-        // toast.loading('Connecting to AI Agent...', { duration: 2000 });
-        // toast.success('You are now connected to the AI Agent');
-      }
+      handleCloseModal();
+    } catch (error) {
+      console.log('Error submitting form:', error);
+      toast.error('Error submitting form. Please try again later.');
     }
-    setTryLiveModalCount(tryLiveModalCount + 1);
-    setIsSubmitting(false);
-    handleCloseModal();
   }
 
   const handleCloseModal = () => {
@@ -142,14 +160,30 @@ export default function ModalForm({
     if (!isValid) {
       return;
     }
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    toast.success('Thank you for you intereset', {});
-    toast.loading('Our AI Agent is calling you now. Please Wait a moment...', {
-      duration: 3000,
-    });
-    setIsSubmitting(false);
-    handleCloseModal();
+    try {
+      const values = form.getValues();
+      const payload = {
+        firstname: values.firstName,
+        lastname: values.lastName,
+        emailaddress: values.email,
+        phonenumber: values.phoneNumber,
+        howdidyouhearaboutus: values.source,
+        companyname: values.companyName || '',
+        jobtitle: values.jobTitle || '',
+      };
+      await submitForm(payload);
+      toast.success('Thank you for you intereset', {});
+      toast.loading(
+        'Our AI Agent is calling you now. Please Wait a moment...',
+        {
+          duration: 3000,
+        },
+      );
+
+      handleCloseModal();
+    } catch (error) {
+      toast.error('Error submitting form. Please try again later.');
+    }
   };
 
   return (

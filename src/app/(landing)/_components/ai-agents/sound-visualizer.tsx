@@ -64,7 +64,7 @@ export default function SoundVisualizer({
         minFreq: 20,
         mirror: 0,
         radial: true,
-        showBgColor: true,
+        showBgColor: false,
         showPeaks: true,
         spinSpeed: 1,
         overlay: true,

@@ -14,7 +14,7 @@ export default function Partners({
   className?: React.CSSProperties | ClassValue | string;
 }) {
   return (
-    <div className={cn('relative mt-10 pt-30 pb-10', className)}>
+    <div className={cn('relative mt-10 pt-10 pb-10 md:pt-30', className)}>
       <div className="">
         <h3 className="text-clrTextDark dark:text-clrTextLight font-opensans justify-start text-center text-base leading-normal font-semibold uppercase">
           In Partnership With

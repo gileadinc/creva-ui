@@ -4,6 +4,7 @@ import { openSans, raleway, roboto } from '@/fonts';
 import { ThemeProvider } from '@/providers/theme-provider';
 import ReactLenisProvider from '@/components/react-lenis';
 import ToasterProvider from '@/providers/toaster-provider';
+import ReactQueryProvider from '@/providers/react-query-provider';
 export const metadata: Metadata = {
   title: 'Creva',
   description: 'Your AI-powered assistant for Hiring Managers',
@@ -34,10 +35,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <ToasterProvider />
+          <ReactLenisProvider />
         </ThemeProvider>
-        <ToasterProvider />
-        <ReactLenisProvider />
       </body>
     </html>
   );

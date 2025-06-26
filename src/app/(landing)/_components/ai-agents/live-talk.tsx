@@ -110,6 +110,9 @@ export default function LiveTalk({
 
   return (
     <div className={cn('', className)}>
+      <div className="dark:border-clrTextLight/20 border-clrTextDark/20 dark:bg-clrOnyx bg-clrSeaShell z-40 mb-6 block w-full space-y-4 rounded-md border px-2 py-3 shadow md:hidden md:basis-1/2">
+        <ImportantNotes />
+      </div>
       <div className="mb-6">
         <AgentCard className="" />
       </div>
@@ -120,16 +123,25 @@ export default function LiveTalk({
           {/* Timer */}
 
           <div className="dark:border-clrTextLight/20 border-clrTextDark/20 dark:bg-clrOnyx bg-clrSeaShell z-40 w-full rounded-md border px-4 py-3 shadow">
-            <div className="flex w-full items-center justify-between px-4">
+            <div className="flex w-full items-center justify-between px-4 max-sm:px-0">
               <p className="dark:text-clrTextLight text-clrTextDark font-opensans dark:text-clrText block font-medium tracking-wide uppercase">
                 Time Remaining
               </p>
 
               <div className="">
                 {timeExceeded ? (
-                  <span className="font-opensans text-base font-semibold text-red-400 dark:text-red-400">
-                    &#x23F0; Time&apos;s up!
-                  </span>
+                  // <span className="font-opensans text-base font-semibold text-red-400 dark:text-red-400">
+                  //   &#x23F0; Time&apos;s up!
+                  // </span>
+                  <Button
+                    onClick={() => {
+                      router.push('/sign-in');
+                    }}
+                    className="font-opensans h-8 w-30 cursor-pointer rounded-[3px] text-sm"
+                    variant="brand"
+                  >
+                    Sign In
+                  </Button>
                 ) : (
                   <span className="dark:text-clrTextLight text-clrTextDark font-opensans dark:text-clrText text-3xl font-bold">
                     {formatted}
@@ -149,15 +161,23 @@ export default function LiveTalk({
               />
               <MicStatusBadge isDisabled={timeExceeded} micStatus={micStatus} />
               {timeExceeded ? (
-                <Button
-                  onClick={() => {
-                    router.push('/sign-in');
-                  }}
-                  className="font-opensans h-8 w-40 cursor-pointer rounded-[3px] text-sm"
-                  variant="brand"
-                >
-                  Sign In
-                </Button>
+                // <Button
+                //   onClick={() => {
+                //     router.push('/sign-in');
+                //   }}
+                //   className="font-opensans h-8 w-40 cursor-pointer rounded-[3px] text-sm"
+                //   variant="brand"
+                // >
+                //   Sign In
+                // </Button>
+                <>
+                  {/* <span className="font-opensans text-sm font-semibold text-red-400 dark:text-red-400">
+                    &#x23F0; Time&apos;s up!
+                  </span> */}
+                  <span className="font-opensans dark:text-clrTextLight text-clrTextDark text-sm font-semibold md:text-base">
+                    Sign in and get additional 30 min for free trial
+                  </span>
+                </>
               ) : (
                 <>
                   {micStatus !== 'granted' ? (
@@ -206,7 +226,7 @@ export default function LiveTalk({
         </div>
 
         {/* Right Column - Notes */}
-        <div className="dark:border-clrTextLight/20 border-clrTextDark/20 dark:bg-clrOnyx bg-clrSeaShell z-40 w-full space-y-4 rounded-md border px-2 py-3 shadow md:basis-1/2">
+        <div className="dark:border-clrTextLight/20 border-clrTextDark/20 dark:bg-clrOnyx bg-clrSeaShell z-40 hidden w-full space-y-4 rounded-md border px-2 py-3 shadow md:block md:basis-1/2">
           <ImportantNotes />
         </div>
       </div>

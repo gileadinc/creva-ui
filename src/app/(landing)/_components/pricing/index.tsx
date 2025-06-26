@@ -18,14 +18,14 @@ export default function Pricing({
 }) {
   const { title, subtitle, description, plans } = pricingSectionData;
   return (
-    <div id="pricing" className="mt-40">
-      <div className={cn('pt-30', className)}>
+    <div id="pricing" className="mt-10 md:mt-20 lg:mt-40">
+      <div className={cn('pt-10 md:pt-20 lg:pt-30', className)}>
         <div className="dark:bg-clrWoodsmoke container mx-auto max-w-7xl px-[2%]">
           <SectionLabel className="" text={subtitle} />
           <SectionTitle text={title} />
           <SectionDescription text={description} />
         </div>
-        <div className="relative mx-auto my-30 py-10">
+        <div className="relative mx-auto my-10 py-10 md:my-20 lg:my-30">
           <div className="absolute inset-0 -inset-y-40 w-full">
             <Image
               className="size-full object-contain opacity-20 dark:opacity-30"

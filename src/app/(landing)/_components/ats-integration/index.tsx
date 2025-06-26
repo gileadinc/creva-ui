@@ -16,7 +16,7 @@ export default function ATSIntegration({
 }) {
   const { title, description, imgSrc, subtitle } = AtsIntegrationSectionData;
   return (
-    <SectionWrapper className={cn('mt-40', className)}>
+    <SectionWrapper className={cn('mt-10 md:mt-20 lg:mt-40', className)}>
       <SectionLabel className="" text={subtitle} />
       <SectionTitle text={title} />
       <SectionDescription text={description} />

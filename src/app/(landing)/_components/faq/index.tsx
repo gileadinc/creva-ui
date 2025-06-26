@@ -24,7 +24,7 @@ export default function Faq({
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
   return (
-    <div id="faq" className="mt-40">
+    <div id="faq" className="mt-10 md:mt-20 lg:mt-40">
       <SectionWrapper className={cn('', className)}>
         <div className="grid grid-cols-1 lg:grid-cols-8 lg:gap-10">
           <div className="col-span-4">

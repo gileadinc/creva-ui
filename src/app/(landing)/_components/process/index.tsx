@@ -18,12 +18,12 @@ export default function Process({
 }) {
   const { title, subtitle, description, cards } = processSectionData;
   return (
-    <div id="process" className="mt-40">
+    <div id="process" className="mt-10 md:mt-20 lg:mt-40">
       <SectionWrapper className={cn('', className)}>
         <SectionLabel className="" text={subtitle} />
         <SectionTitle text={title} />
         <SectionDescription text={description} />
-        <ul className="mt-40 flex flex-col gap-20">
+        <ul className="mt-20 flex flex-col gap-20 lg:mt-40">
           {cards.map((item, idx) => (
             <li key={idx}>
               <ProcessCard

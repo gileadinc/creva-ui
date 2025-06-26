@@ -14,8 +14,8 @@ export default function Features({
 }) {
   const { title, subtitle, description, cards } = featuresSectionData;
   return (
-    <div id="features" className="mt-40">
-      <div className={cn('pt-30', className)}>
+    <div id="features" className="mt-10 md:mt-20 lg:mt-40">
+      <div className={cn('pt-10 md:pt-20 lg:pt-30', className)}>
         <div className="container mx-auto max-w-7xl px-[2%]">
           <SectionLabel className="" text={subtitle} />
           <SectionTitle text={title} />
@@ -131,8 +131,15 @@ function FeatureCardImg1() {
       )}
     >
       <Image
-        className="size-full object-contain"
+        className="hidden size-full object-contain dark:block"
         src="/assets/img/feature-1a.png"
+        alt="feature1"
+        width={410}
+        height={410}
+      />
+      <Image
+        className="block size-full object-contain dark:hidden"
+        src="/assets/img/feature-1a-light.png"
         alt="feature1"
         width={410}
         height={410}
@@ -147,8 +154,15 @@ function FeatureCardImg2() {
       <div className="hidden size-full lg:block">
         <div className="absolute right-[-10px] bottom-0 h-[118%] bg-transparent">
           <Image
-            className="size-full object-contain"
+            className="hidden size-full object-contain dark:block"
             src="/assets/img/feature2.png"
+            alt="feature2"
+            width={400}
+            height={400}
+          />
+          <Image
+            className="block size-full object-contain dark:hidden"
+            src="/assets/img/feature2-light.png"
             alt="feature2"
             width={400}
             height={400}
@@ -159,8 +173,15 @@ function FeatureCardImg2() {
       <div className="hidden sm:block lg:hidden">
         <div className="absolute right-[-10px] bottom-0 bg-transparent max-sm:inset-0 sm:top-1/4 md:top-0">
           <Image
-            className="size-full object-contain"
+            className="hidden size-full object-contain dark:block"
             src="/assets/img/feature2.png"
+            alt="feature2"
+            width={400}
+            height={400}
+          />
+          <Image
+            className="block size-full object-contain dark:hidden"
+            src="/assets/img/feature2-light.png"
             alt="feature2"
             width={400}
             height={400}
@@ -171,8 +192,15 @@ function FeatureCardImg2() {
       <div className="block sm:hidden">
         <div className="bg-transparent">
           <Image
-            className="size-full object-contain"
+            className="hidden size-full object-contain dark:block"
             src="/assets/img/feature2mob.png"
+            alt="feature2"
+            width={400}
+            height={400}
+          />
+          <Image
+            className="block size-full object-contain dark:hidden"
+            src="/assets/img/feature2-mob-light.png"
             alt="feature2"
             width={400}
             height={400}
@@ -187,8 +215,15 @@ function FeatureCardImg3() {
   return (
     <div className="xs:right-10 absolute right-0 md:inset-0">
       <Image
-        className="size-full object-contain"
+        className="hidden size-full object-contain dark:block"
         src="/assets/img/feature3.png"
+        alt="feature3"
+        width={300}
+        height={300}
+      />
+      <Image
+        className="block size-full object-contain dark:hidden"
+        src="/assets/img/feature3-light.png"
         alt="feature3"
         width={300}
         height={300}

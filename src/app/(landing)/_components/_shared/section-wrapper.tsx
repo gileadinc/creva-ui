@@ -10,7 +10,10 @@ export function SectionWrapper({
 }) {
   return (
     <section
-      className={cn('container mx-auto max-w-7xl px-[2%] pt-30', className)}
+      className={cn(
+        'container mx-auto max-w-7xl px-[2%] pt-10 md:pt-20 lg:pt-30',
+        className,
+      )}
     >
       {children}
     </section>

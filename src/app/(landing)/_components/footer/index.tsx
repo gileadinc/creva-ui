@@ -57,7 +57,10 @@ export default function Footer({
   };
   return (
     <footer
-      className={cn('text-clrSeaShell relative bg-[#090909] pt-30', className)}
+      className={cn(
+        'dark:text-clrSeaShell text-clrTextDark relative bg-[#F0F0F0] pt-30 dark:bg-[#090909]',
+        className,
+      )}
     >
       <div className="container mx-auto max-w-7xl px-[2%]">
         <div className="grid grid-cols-1 max-md:gap-10 md:grid-cols-[1.5fr_3fr] lg:grid-cols-[1.5fr_2fr]">

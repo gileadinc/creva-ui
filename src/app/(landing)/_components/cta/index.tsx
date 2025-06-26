@@ -12,7 +12,7 @@ export default function Cta({
 }) {
   const router = useRouter();
   return (
-    <section className="mt-60 px-[4%]">
+    <section className="mt-40 px-[4%] md:mt-60">
       <div
         className={cn(
           'relative bottom-[-60px] z-10 container mx-auto mt-[160px] w-full max-w-6xl overflow-hidden rounded-xl py-6',

@@ -17,7 +17,7 @@ export default function Testimonals({
 }) {
   const { title, subtitle, description, cards } = testimonialsSectionData;
   return (
-    <div id="testimonials" className="mt-40">
+    <div id="testimonials" className="mt-10 md:mt-20 lg:mt-40">
       <SectionWrapper className={cn('', className)}>
         <SectionLabel className="" text={subtitle} />
         <SectionTitle text={title} />
