@@ -25,6 +25,9 @@ import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import { useAppStore } from '@/store/useAppStore';
 import { agentsData } from '@/constants/data';
+import { PhoneInput } from '../ui/phone-input';
+import { useSubmitAiAgentForm } from '@/hooks/api/useSubmitAIAgentForm';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 import {
   ResponsiveModal,
   ResponsiveModalContent,
@@ -52,10 +55,8 @@ const formSchema = z.object({
     .string({ message: 'email is required' })
     .email({ message: 'Invalid email address' }),
   phoneNumber: z
-    .string({ message: 'Phone number is required' })
-    .min(7, { message: 'Phone number must be at least 7 digits' })
-    .max(15, { message: 'Phone number must be at most 15 digits' })
-    .regex(/^\d+$/, { message: 'Phone number must contain only digits' }),
+    .string()
+    .refine(isValidPhoneNumber, { message: 'Invalid phone number' }),
   source: z.string({
     required_error: 'Please select an option.',
   }),
@@ -68,7 +69,9 @@ export default function CustomModal({
 }: {
   className?: React.CSSProperties | ClassValue | string;
 }) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
+  const { mutateAsync: submitForm, isPending: isSubmitting } =
+    useSubmitAiAgentForm();
 
   const {
     isModalOpen,
@@ -99,46 +102,57 @@ export default function CustomModal({
         id: selectedAgentId,
       },
     };
-    setIsSubmitting(true);
-    // simulate form submission...
-    await new Promise((resolve) => setTimeout(resolve, 4000));
 
-    console.log('Form submitted with data:', data);
+    const payload = {
+      firstname: data.firstName,
+      lastname: data.lastName,
+      emailaddress: data.email,
+      phonenumber: data.phoneNumber,
+      howdidyouhearaboutus: data.source,
+      companyname: data.companyName || '',
+      jobtitle: data.jobTitle || '',
+    };
 
-    toast.success('Thank you for your submission!', {
-      description: '',
-      duration: 1000,
-      position: 'top-right',
-    });
+    try {
+      // submit the form data to the API.
+      await submitForm(payload);
 
-    if (modalContext === 'agentInteraction') {
-      if (selectedAgentId) {
-        setIsCharacterTalking(true);
-        toast.success(
-          `You are now connected to ${agentsData.find((agent) => agent.id === selectedAgentId)?.name}`,
-          {
-            description: 'Your AI Agent is ready to assist you.',
-            duration: 3000,
-            position: 'top-right',
-          },
-        );
-      }
-    } else if (modalContext === 'tryLive') {
-      setIsTryLiveOn(true);
-      toast.success('You are now in the live interaction mode!', {
+      toast.success('Thank you for your submission!', {
         description: '',
+        duration: 1000,
         position: 'top-right',
       });
+
+      if (modalContext === 'agentInteraction') {
+        if (selectedAgentId) {
+          setIsCharacterTalking(true);
+          toast.success(
+            `You are now connected to ${agentsData.find((agent) => agent.id === selectedAgentId)?.name}`,
+            {
+              description: 'Your AI Agent is ready to assist you.',
+              duration: 3000,
+              position: 'top-right',
+            },
+          );
+        }
+      } else if (modalContext === 'tryLive') {
+        setIsTryLiveOn(true);
+        toast.success('You are now in the live interaction mode!', {
+          description: '',
+          position: 'top-right',
+        });
+      }
+
+      trackMatomoEvent(
+        MatomoCategory.Form,
+        MatomoAction.Submitted,
+        'Try AI Agent Form (Try AI Agent Button)',
+      );
+
+      handleCloseModal();
+    } catch (error) {
+      toast.error('Error submitting form. Please try again later.');
     }
-
-    trackMatomoEvent(
-      MatomoCategory.Form,
-      MatomoAction.Submitted,
-      'Try AI Agent Form (Try AI Agent Button)',
-    );
-
-    setIsSubmitting(false);
-    handleCloseModal();
   }
 
   const handleCallOnPhone = async () => {
@@ -148,21 +162,37 @@ export default function CustomModal({
     if (!isValid) {
       return;
     }
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 4000));
-    toast.success('Thank you for your interest!', {
-      description: 'Our AI Agent is calling you now. Please wait a moment.',
-      position: 'top-right',
-    });
-    setIsSubmitting(false);
 
-    trackMatomoEvent(
-      MatomoCategory.Form,
-      MatomoAction.Submitted,
-      'Try AI Agent Form (Get A Phone Call Button)',
-    );
+    try {
+      const values = form.getValues();
+      const payload = {
+        firstname: values.firstName,
+        lastname: values.lastName,
+        emailaddress: values.email,
+        phonenumber: values.phoneNumber,
+        howdidyouhearaboutus: values.source,
+        companyname: values.companyName || '',
+        jobtitle: values.jobTitle || '',
+      };
+      await submitForm(payload);
 
-    handleCloseModal();
+      toast.success('Thank you for your interest!', {
+        description: 'Our AI Agent is calling you now. Please wait a moment.',
+        position: 'top-right',
+      });
+
+      trackMatomoEvent(
+        MatomoCategory.Form,
+        MatomoAction.Submitted,
+        'Try AI Agent Form (Get A Phone Call Button)',
+      );
+
+      handleCloseModal();
+    } catch (error) {
+      if (error) {
+        toast.error('Error submitting form. Please try again later.');
+      }
+    }
   };
 
   const handleCloseModal = () => {
@@ -324,10 +354,10 @@ export default function CustomModal({
                       Phone Number
                     </FormLabel>
                     <FormControl>
-                      <Input
+                      <PhoneInput
                         disabled={isSubmitting}
                         className="border-clrTextLight h-11 text-sm"
-                        placeholder="Your Phone Number"
+                        placeholder="Enter a phone number"
                         {...field}
                       />
                     </FormControl>

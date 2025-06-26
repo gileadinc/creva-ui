@@ -5,6 +5,7 @@ import Matomo from '@/components/matomo-analytics';
 import { Toaster } from '@/components/ui/sonner';
 import ReactLenisProvider from '@/components/react-lenis';
 import { nunito, roboto } from '@/fonts';
+import ReactQueryProvider from '@/context/react-query-provider';
 
 export const metadata: Metadata = {
   title: 'Creva',
@@ -35,7 +36,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ReactQueryProvider>{children}</ReactQueryProvider>
 
           <Toaster className="dark:bg-clrBlackPearl bg-clrAquaHaze text-clrTextLight dark:text-clrText" />
           <ReactLenisProvider />
