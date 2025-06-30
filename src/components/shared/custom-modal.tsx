@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { Loader, Mic, Phone } from 'lucide-react';
+import { Loader, Mic, Phone, X } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -30,6 +30,7 @@ import { useSubmitAiAgentForm } from '@/hooks/api/useSubmitAIAgentForm';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import {
   ResponsiveModal,
+  ResponsiveModalClose,
   ResponsiveModalContent,
   ResponsiveModalDescription,
   ResponsiveModalHeader,
@@ -211,9 +212,10 @@ export default function CustomModal({
   return (
     <ResponsiveModal open={isModalOpen} onOpenChange={handleCloseModal}>
       <ResponsiveModalContent
+        data-lenis-prevent
         aria-describedby="modal"
         className={cn(
-          'dark:bg-clrBlackPearl scrollbar-hide max-h-[calc(100vh-30px)] overflow-y-auto bg-white xl:min-w-[550px]',
+          // 'dark:bg-clrBlackPearl scrollbar-hide h-full max-h-[calc(100vh-30px)] overflow-y-auto bg-white xl:min-w-[550px]',
           className,
         )}
       >
@@ -222,17 +224,24 @@ export default function CustomModal({
           <ResponsiveModalDescription>Modal Desc</ResponsiveModalDescription>
         </ResponsiveModalHeader>
 
-        <div className="h-full">
+        <div className="">
           <div className="font-nunito dark:text-clrText text-clrTextLight">
-            <h3 className="py-2 text-[24px] font-extrabold">
-              Experience Our AI Agents
-            </h3>
+            <div className="flex items-center justify-between">
+              <h3 className="py-2 text-[24px] font-extrabold">
+                Experience Our AI Agents
+              </h3>
+              <ResponsiveModalClose className="cursor-pointer">
+                <X className="size-8" />
+                <span className="sr-only">Close</span>
+              </ResponsiveModalClose>
+            </div>
             <hr className="text-clrDawnyGreen" />
             <p className="my-3 mb-4 text-[12px] leading-[18px] font-light tracking-wide lg:text-base lg:leading-[24px]">
               Fill out the form below to experience our AI recruitment services.
               Please provide your full name, email address, and phone number
             </p>
           </div>
+
           <hr className="text-clrDawnyGreen" />
 
           <div className="pt-3 pb-2">
@@ -393,16 +402,47 @@ export default function CustomModal({
                         <SelectContent className="dark:bg-clrBlackPearl dark:text-clrText text-clrTextLight bg-white">
                           {[
                             { value: 'google', label: 'Google Search' },
-                            { value: 'social_media', label: 'Social Media' },
-                            { value: 'friend', label: 'Friend or Family' },
-                            { value: 'advertisement', label: 'Advertisement' },
+                            { value: 'social-media', label: 'Social Media' },
+                            {
+                              value: 'friend-family',
+                              label: 'Friend or Family',
+                            },
+                            {
+                              value: 'advertisement',
+                              label: 'Advertisement',
+                            },
+                            {
+                              value: 'blog-article',
+                              label: 'Blog or Article',
+                            },
+                            { value: 'youtube', label: 'YouTube' },
+                            { value: 'podcast', label: 'Podcast' },
+                            { value: 'email', label: 'Email Newsletter' },
                             { value: 'event', label: 'Event or Conference' },
+                            {
+                              value: 'partner',
+                              label: 'Partner or Referral',
+                            },
+                            { value: 'app-store', label: 'App Store' },
+                            { value: 'linkedin', label: 'LinkedIn' },
+                            { value: 'facebook', label: 'Facebook' },
+                            { value: 'twitter', label: 'Twitter/X' },
+                            { value: 'instagram', label: 'Instagram' },
+                            { value: 'tiktok', label: 'TikTok' },
+                            { value: 'reddit', label: 'Reddit' },
+                            { value: 'online-forum', label: 'Online Forum' },
+                            { value: 'tv-radio', label: 'TV or Radio' },
+                            { value: 'print-media', label: 'Print Media' },
+                            {
+                              value: 'word-of-mouth',
+                              label: 'Word of Mouth',
+                            },
                             { value: 'other', label: 'Other' },
                           ].map((item) => (
                             <SelectItem
                               key={item.value}
                               value={item.value}
-                              className="dark:hover:bg-clrTextLight/10 hover:bg-clrTextLight/10 px-4 py-3 text-base"
+                              className="dark:hover:bg-clrTextLight/10 hover:bg-clrTextLight/10 focus:bg-clrTextLight/10 px-4 py-3 text-base"
                             >
                               {item.label}
                             </SelectItem>
