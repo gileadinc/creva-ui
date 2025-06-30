@@ -60,49 +60,11 @@ export default function Footer({
         className,
       )}
     >
-      {/* <div className="from-clrSunnyYellow to-clrAlienGreen h-1 bg-linear-51"></div> */}
-      <div className="animate-scroll-gradient h-1 w-full bg-[linear-gradient(90deg,#f3f520,#59d102,#4cc9f0,#f3f520)] bg-[length:200%_100%]" />
+      <div className="animate-scroll-gradient hidden h-0.5 w-full bg-[linear-gradient(90deg,#36343C,#36343C,#36343C,#36343C,#f3f520,#59d102,#f3f520,#36343C,#36343C,#36343C,#36343C,#36343C)] bg-[length:33%_100%] dark:block" />
+
+      <div className="animate-scroll-gradient block h-0.5 w-full bg-[linear-gradient(90deg,#d1d1d1,#d1d1d1,#d1d1d1,#d1d1d1,#f3f520,#59d102,#f3f520,#d1d1d1,#d1d1d1,#d1d1d1,#d1d1d1,#d1d1d1)] bg-[length:33%_100%] dark:hidden" />
+
       <div className="mx-auto size-full max-w-7xl px-[4%] pt-20">
-        {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-[1fr_1fr_1fr]">
-          <div className="max-sm:col-span-3 max-sm:mb-4">
-            <Image
-              src="/assets/svg/creva-logo.svg"
-              width={140}
-              height={140}
-              alt="creva-logo"
-            />
-          </div>
-          <div className="w-[200px]">
-            <h3 className="text-2xl leading-10 font-bold capitalize opacity-60">
-              Links
-            </h3>
-            <ul className="mt-3 space-y-2">
-              {footerLinks.map((item, idx) => (
-                <li
-                  key={idx}
-                  className="cursor-pointer opacity-60 transition-all duration-300 ease-linear hover:text-black hover:opacity-100 dark:hover:text-white"
-                >
-                  {item.name}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="">
-            <h3 className="text-2xl leading-10 font-bold capitalize opacity-60">
-              Contact Us
-            </h3>
-            <ul className="mt-3 space-y-2">
-              {contactData.map(({ value }, idx) => (
-                <li
-                  key={idx}
-                  className="cursor-pointer opacity-60 transition-all duration-300 ease-linear hover:text-black hover:opacity-100 dark:hover:text-white"
-                >
-                  {value}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div> */}
         <div className="flex flex-wrap sm:grid sm:grid-cols-[1fr_2fr]">
           {/* First: Logo - full width */}
           <div className="max-sm:mb-5">

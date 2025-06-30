@@ -167,8 +167,7 @@
   }
 
   .animate-scroll-gradient {
-    animation: scroll-gradient 2s linear infinite;
-    background-size: 200% 100%;
+    animation: scroll-gradient 10s linear infinite;
   }
 
   @keyframes rotateConic {
