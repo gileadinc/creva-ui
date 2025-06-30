@@ -195,7 +195,7 @@ export default function ModalForm({
         side={'top'}
         aria-describedby="modal"
         className={cn(
-          'dark:bg-clrOnyx scrollbar-hide h-full max-h-[calc(100dvh-2%)] bg-white lg:max-h-[calc(100vh-5%)] xl:min-w-[500px]',
+          // 'dark:bg-clrOnyx scrollbar-hide h-full max-h-[calc(100dvh-2%)] bg-white lg:max-h-[calc(100vh-5%)] xl:min-w-[500px]',
           // 'dark:bg-clrWoodsmoke scrollbar-hide max-h-[calc(100dvh-2%)] lg:max-h-[calc(100vh-5%)] xl:min-w-[500px]',
 
           className,
@@ -214,7 +214,10 @@ export default function ModalForm({
               <h3 className="font-montserrat py-2 text-[24px] font-extrabold">
                 Experience Our AI Agents
               </h3>
-              <ResponsiveModalClose className="cursor-pointer">
+              <ResponsiveModalClose
+                disabled={isSubmitting}
+                className="cursor-pointer"
+              >
                 <X className="size-8" />
                 <span className="sr-only">Close</span>
               </ResponsiveModalClose>
