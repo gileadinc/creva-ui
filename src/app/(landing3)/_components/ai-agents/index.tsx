@@ -128,7 +128,7 @@ function AgentCard({
   const { name, img, country, music, id } = agent;
   return (
     <div>
-      <div className="relative mx-auto w-[90%] p-2">
+      {/* <div className="relative mx-auto w-[90%] p-2">
         <Image
           className="size-full object-cover"
           src={img}
@@ -143,6 +143,29 @@ function AgentCard({
               'absolute inset-0 animate-pulse rounded-full bg-white/40 ring-4 ring-white',
           )}
         ></div>
+      </div> */}
+      <div className="relative mx-auto w-[90%] p-2">
+        {/* Glowing Ring (background layer) */}
+        {isPlaying && (
+          <div
+            className={cn(
+              'absolute inset-0 z-0 animate-pulse rounded-full ring-4',
+              // 'bg-black/20 ring-4 ring-black/25 dark:bg-[#e9e9e9]/20 dark:ring-[#e9e9e9]/25',
+              'bg-[#e9e9e9]/75 ring-[#e9e9e9]/85',
+              // 'ring-[#e9e9e9]/40 dark:bg-clrBrand/20 dark:ring-clrBrand/25 bg-black/10 ring-4',
+            )}
+          />
+        )}
+
+        {/* Image (foreground layer) */}
+        <Image
+          className="relative z-10 size-full object-cover"
+          src={img}
+          loading="lazy"
+          alt={name}
+          width={160}
+          height={160}
+        />
       </div>
       <h3 className="font-montserrat mt-4 justify-start text-center text-2xl font-bold text-[#121212] capitalize">
         {name}
