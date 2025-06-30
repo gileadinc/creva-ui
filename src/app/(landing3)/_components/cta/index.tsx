@@ -13,8 +13,8 @@ export default function Cta({
   const router = useRouter();
   const { openCtaDialog } = useAppStore();
   const handleGetStartedNow = () => {
-    // router.push('/sign-up');
-    openCtaDialog();
+    router.push('/sign-up');
+    // openCtaDialog();
   };
   return (
     <div className={cn('px-[2%] py-20 sm:py-30 md:py-38 lg:py-42', className)}>
