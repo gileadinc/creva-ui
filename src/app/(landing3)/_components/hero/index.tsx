@@ -34,16 +34,16 @@ export default function Hero({
       <div className="absolute right-0 -bottom-52 opacity-0 sm:max-md:opacity-100">
         <RotatingGradientSVG height={400} width={400} className="" />
       </div>
-      <div className="absolute top-0 left-0 opacity-0 md:opacity-100">
+      <div className="absolute top-0 left-0 opacity-0 md:opacity-100 xl:left-[10%] 2xl:left-[20%]">
         <RotatingGradientSVG className="" />
       </div>
-      <div className="absolute top-0 right-0 opacity-0 md:opacity-100">
+      <div className="absolute top-0 right-0 opacity-0 md:opacity-100 xl:right-[10%] 2xl:right-[20%]">
         <RotatingGradientSVG className="" />
       </div>
-      <div className="absolute -bottom-52 left-0 opacity-0 md:opacity-100">
+      <div className="absolute -bottom-52 left-0 opacity-0 md:opacity-100 xl:left-[10%] 2xl:left-[20%]">
         <RotatingGradientSVG className="" />
       </div>
-      <div className="absolute right-0 -bottom-52 opacity-0 md:opacity-100">
+      <div className="absolute right-0 -bottom-52 opacity-0 md:opacity-100 xl:right-[10%] 2xl:right-[20%]">
         <RotatingGradientSVG className="" />
       </div>
 
