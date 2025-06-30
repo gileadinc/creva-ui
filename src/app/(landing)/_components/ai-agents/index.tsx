@@ -55,14 +55,14 @@ export default function AIAgents({
     }
   };
   return (
-    <div id="ai-agents" className={cn('mt-40', className)}>
-      <div className="pt-30">
+    <div id="ai-agents" className={cn('mt-10 md:mt-20 lg:mt-40', className)}>
+      <div className="pt-10 md:pt-20 lg:pt-30">
         <div className="dark:bg-clrWoodsmoke container mx-auto max-w-7xl px-[2%]">
           <SectionLabel className="" text={subtitle} />
           <SectionTitle text={title} />
           <SectionDescription text={description} />
         </div>
-        <div className="relative mx-auto my-30 py-10">
+        <div className="relative mx-auto my-10 py-10 md:my-20 lg:my-30">
           <div className="absolute inset-0 -inset-y-40 -left-20 w-full opacity-10 dark:opacity-30">
             <Image
               className="size-full object-contain"
@@ -160,15 +160,26 @@ function AIAgentCard({
 
     setIsTryLiveOn,
 
-    tryLiveModalCount,
-    setTryLiveModalCount,
+    isTryLiveModalFirstOpen,
+    setIsTryLiveModalFirstOpen,
   } = useAppStore();
 
   const handleSpeakLive = () => {
     console.log(`Speak live with ${name} (ID: ${id})`);
     setSelectedAgentId(id);
 
-    openModal('tryLive');
+    if (!isTryLiveModalFirstOpen) {
+      openModal('tryLive');
+      setIsTryLiveModalFirstOpen(true);
+      // trackMatomoEvent(
+      //   MatomoCategory.Modal,
+      //   MatomoAction.Opened,
+      //   'Expeiance AI Agent Interaction Modal (TryLive Section)',
+      // );
+    } else {
+      setIsTryLiveOn(true);
+    }
+
     // if (tryLiveModalCount < 1) {
     //   openModal('tryLive');
     //   setTryLiveModalCount(tryLiveModalCount + 1);
@@ -184,9 +195,9 @@ function AIAgentCard({
         'dark:text-clrSeaShell text-clrTextDark font-raleway',
       )}
     >
-      <div className="relative mx-auto w-[50%] p-2">
+      {/* <div className="relative mx-auto w-[50%] p-2">
         <Image
-          className="object-contain"
+          className="z-[99] object-contain"
           src={img}
           loading="lazy"
           alt={name}
@@ -195,10 +206,33 @@ function AIAgentCard({
         />
         <div
           className={cn(
-            isPlaying &&
-              'dark:ring-clrBrand/60 dark:bg-clrBrand/30 ring-clrBrand/70 absolute inset-0 animate-pulse rounded-full bg-black/20 ring-4',
+            !isPlaying &&
+              // 'dark:ring-clrBrand/60 dark:bg-clrBrand/30 ring-clrBrand/70 absolute inset-0 z-10 animate-pulse rounded-full bg-black/20 ring-4',
+              'ring-clrBrand/70 dark:ring-clrBrand/60 dark:bg-clrBrand/30 absolute inset-0 animate-pulse rounded-full ring-4',
           )}
         ></div>
+      </div> */}
+      <div className="relative mx-auto w-[50%] p-2">
+        {/* Glowing Ring (background layer) */}
+        {isPlaying && (
+          <div
+            className={cn(
+              'absolute inset-0 z-0 animate-pulse rounded-full ring-4',
+              'bg-black/20 ring-4 ring-black/25 dark:bg-[#e9e9e9]/20 dark:ring-[#e9e9e9]/25',
+              // 'ring-[#e9e9e9]/40 dark:bg-clrBrand/20 dark:ring-clrBrand/25 bg-black/10 ring-4',
+            )}
+          />
+        )}
+
+        {/* Image (foreground layer) */}
+        <Image
+          className="relative z-10 object-contain"
+          src={img}
+          loading="lazy"
+          alt={name}
+          width={400}
+          height={400}
+        />
       </div>
       <div className="mt-4 space-y-1 text-center">
         <h3 className="text-2xl font-bold">{name}</h3>
@@ -221,7 +255,7 @@ function AIAgentCard({
           variant={'brand'}
         >
           <span className="font-raleway sfont-medium block text-sm">
-            Play Demo
+            {isPlaying ? 'Pause' : 'Play'} Demo
           </span>
           {isPlaying ? (
             <Pause className="block size-4" />

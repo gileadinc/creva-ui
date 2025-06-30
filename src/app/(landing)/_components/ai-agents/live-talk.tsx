@@ -110,7 +110,7 @@ export default function LiveTalk({
 
   return (
     <div className={cn('', className)}>
-      <div className="dark:border-clrTextLight/20 border-clrTextDark/20 dark:bg-clrOnyx bg-clrSeaShell z-40 mb-6 block w-full space-y-4 rounded-md border px-2 py-3 shadow md:hidden md:basis-1/2">
+      <div className="dark:bg-clrOnyx bg-clrSeaShell z-40 mb-6 block w-full space-y-4 rounded-md px-2 py-3 shadow-md md:hidden md:basis-1/2">
         <ImportantNotes />
       </div>
       <div className="mb-6">
@@ -122,7 +122,7 @@ export default function LiveTalk({
         <div className="flex w-full flex-col gap-4 md:basis-1/2">
           {/* Timer */}
 
-          <div className="dark:border-clrTextLight/20 border-clrTextDark/20 dark:bg-clrOnyx bg-clrSeaShell z-40 w-full rounded-md border px-4 py-3 shadow">
+          <div className="dark:bg-clrOnyx bg-clrSeaShell z-40 w-full rounded-md px-4 py-3 shadow-md">
             <div className="flex w-full items-center justify-between px-4 max-sm:px-0">
               <p className="dark:text-clrTextLight text-clrTextDark font-opensans dark:text-clrText block font-medium tracking-wide uppercase">
                 Time Remaining
@@ -152,7 +152,7 @@ export default function LiveTalk({
           </div>
 
           {/* Mic Controls */}
-          <div className="dark:border-clrTextLight/20 border-clrTextDark/20 dark:bg-clrOnyx bg-clrSeaShell z-40 h-full space-y-4 rounded-md border px-2 py-3 shadow">
+          <div className="dark:bg-clrOnyx bg-clrSeaShell z-40 h-full space-y-4 rounded-md px-2 py-3 shadow-md">
             <div className="flex h-full flex-col items-center justify-center gap-2">
               <DisplayMic
                 isDisabled={timeExceeded}
@@ -226,13 +226,13 @@ export default function LiveTalk({
         </div>
 
         {/* Right Column - Notes */}
-        <div className="dark:border-clrTextLight/20 border-clrTextDark/20 dark:bg-clrOnyx bg-clrSeaShell z-40 hidden w-full space-y-4 rounded-md border px-2 py-3 shadow md:block md:basis-1/2">
+        <div className="dark:bg-clrOnyx bg-clrSeaShell z-40 hidden w-full space-y-4 rounded-md px-2 py-3 shadow-md md:block md:basis-1/2">
           <ImportantNotes />
         </div>
       </div>
 
       {/*  SOUND VISUALIZER */}
-      <div className="dark:border-clrTextLight/20 border-clrTextDark/20 dark:bg-clrOnyx bg-clrSeaShell z-40 mt-6 h-[264px] w-full rounded-md border border-dashed px-2 py-3 shadow">
+      <div className="dark:bg-clrOnyx bg-clrSeaShell z-40 mt-6 h-[264px] w-full rounded-md px-2 py-3 shadow-md">
         <SoundVisualizer mediaStream={mediaStream} />
       </div>
 
@@ -418,7 +418,7 @@ function AgentCard({
         className,
       )}
     >
-      <div className="relative mx-auto w-[40%] p-2">
+      {/* <div className="relative mx-auto w-[40%] p-2">
         <Image
           className="object-contain"
           src={img}
@@ -432,6 +432,27 @@ function AgentCard({
             'dark:ring-clrBrand/60 dark:bg-clrBrand/30 ring-clrBrand/70 absolute inset-0 animate-pulse rounded-full bg-black/20 ring-4',
           )}
         ></div>
+      </div> */}
+      <div className="relative mx-auto w-[40%] p-2">
+        {/* Glowing Ring (background layer) */}
+
+        <div
+          className={cn(
+            'absolute inset-0 z-0 animate-pulse rounded-full ring-4',
+            'bg-black/20 ring-4 ring-black/25 dark:bg-[#e9e9e9]/20 dark:ring-[#e9e9e9]/25',
+            // 'ring-[#e9e9e9]/40 dark:bg-clrBrand/20 dark:ring-clrBrand/25 bg-black/10 ring-4',
+          )}
+        />
+
+        {/* Image (foreground layer) */}
+        <Image
+          className="relative z-10 object-contain"
+          src={img}
+          loading="lazy"
+          alt={name}
+          width={400}
+          height={400}
+        />
       </div>
       <div className="mt-2 text-center">
         <h3 className="text-lg font-bold">{name}</h3>
