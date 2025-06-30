@@ -103,7 +103,7 @@ export default function LiveTalk() {
         <div className="flex w-full basis-1/2 flex-col gap-4">
           {/* Timer */}
 
-          <div className="dark:border-clrAquaHaze/80 border-clrTextLight/20 dark:bg-clrFirefly bg-clrAquaHaze rounded-md border px-4 py-3 shadow">
+          <div className="dark:bg-clrFirefly bg-clrAquaHaze rounded-md px-4 py-3 shadow">
             <div className="flex items-center justify-between px-4">
               <p className="text-clrTextLight font-roboto dark:text-clrText block font-medium tracking-wide uppercase">
                 Time Remaining
@@ -124,7 +124,7 @@ export default function LiveTalk() {
           </div>
 
           {/* Mic Controls */}
-          <div className="dark:border-clrAquaHaze/80 border-clrTextLight/20 dark:bg-clrFirefly bg-clrAquaHaze h-full space-y-4 rounded-md border px-2 py-3 shadow">
+          <div className="dark:bg-clrFirefly bg-clrAquaHaze h-full space-y-4 rounded-md px-2 py-3 shadow">
             <div className="flex h-full flex-col items-center justify-center gap-2">
               <DisplayMic
                 isDisabled={timeExceeded}
@@ -181,13 +181,13 @@ export default function LiveTalk() {
         </div>
 
         {/* Right Column - Notes */}
-        <div className="dark:border-clrAquaHaze/80 border-clrTextLight/20 dark:bg-clrFirefly bg-clrAquaHaze w-full space-y-4 rounded-md border px-2 py-3 shadow md:basis-1/2">
+        <div className="dark:bg-clrFirefly bg-clrAquaHaze w-full space-y-4 rounded-md px-2 py-3 shadow md:basis-1/2">
           <ImportantNotes />
         </div>
       </div>
 
       {/* Sound Visualizer Section */}
-      <div className="border-clrTextLight/80 mx-auto mt-6 h-[300px] w-full max-w-6xl rounded-md border border-dashed p-2">
+      <div className="mx-auto mt-6 h-[300px] w-full max-w-6xl rounded-md p-2 shadow">
         <SoundVisualizer mediaStream={mediaStream} />
       </div>
     </div>
