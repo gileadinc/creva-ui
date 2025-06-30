@@ -326,14 +326,21 @@ function ScreenUI() {
 function ActionUI() {
   return (
     <div className="absolute inset-0">
-      <div className="flex size-full flex-col gap-8">
-        <h2 className="font-nunito mt-10 text-center text-3xl font-semibold">
+      <div className="flex size-full flex-col gap-4">
+        <h2 className="font-nunito mt-4 text-center text-3xl font-semibold">
           Applicant List
         </h2>
-        <div className="mx-auto w-[90%]">
+        <div className="mx-auto h-full w-[90%]">
           <Image
-            className="size-full object-cover"
-            src={'/assets/img/applicant-img.png'}
+            className="block size-full object-cover object-left-top dark:hidden"
+            src={'/assets/img/applicant-light.png'}
+            width={500}
+            height={500}
+            alt="applicants-images"
+          />
+          <Image
+            className="hidden size-full object-cover object-left-top dark:block"
+            src={'/assets/img/applicant-dark.png'}
             width={500}
             height={500}
             alt="applicants-images"
