@@ -8,7 +8,7 @@ export default function PayPalIcon({
 }) {
   return (
     <svg
-      className={cn('text-[#494e59] opacity-40 dark:text-[#F0F0F0]', className)}
+      className={cn('text-[##494E59] dark:text-[#D8F2F5]', className)}
       width="113"
       height="30"
       viewBox="0 0 113 30"

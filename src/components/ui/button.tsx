@@ -20,6 +20,20 @@ const buttonVariants = cva(
         ghost:
           'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',
+        brand:
+          'bg-linear-51 cursor-pointer transition-all duration-300 ease-in from-[#f3f520] text-[#121212] to-[#59d102] hover:from-[#f3f520]/[.9] hover:to-[#59d102]/[.9] rounded-xs',
+
+        brandOutline: `
+          relative inline-block rounded-md p-[1px] 
+          bg-gradient-to-r from-[#f3f520] to-[#59d102] 
+          transition-all duration-300 ease-in
+          text-[#121212] font-roboto cursor-pointer relative
+        `,
+        brandOutlineInner: `
+          rounded-[inherit] rounded-sm  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[98%]
+          bg-white dark:bg-[#121212] text-[#333333] dark:text-[#E0E0E0]
+          hover:bg-white/65 dark:hover:bg-[#121212]/65  text-lg
+        `,
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
@@ -40,19 +54,37 @@ function Button({
   variant,
   size,
   asChild = false,
+  // type,
+  children,
   ...props
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    // type?: 'brandOutlineInner' | 'brandOutlineInner2';
   }) {
   const Comp = asChild ? Slot : 'button';
+  const isGradientOutline = variant === 'brandOutline';
 
   return (
+    // <Comp
+    //   data-slot="button"
+    //   className={cn(buttonVariants({ variant, size, className }))}
+    //   {...props}
+    // />
+
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size }), className)}
       {...props}
-    />
+    >
+      {isGradientOutline ? (
+        <span className={buttonVariants({ variant: 'brandOutlineInner' })}>
+          {children}
+        </span>
+      ) : (
+        children
+      )}
+    </Comp>
   );
 }
 

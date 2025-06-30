@@ -1,62 +1,73 @@
-// stores/useDemoStore.ts
 'use client';
 import { create } from 'zustand';
 
-const DEFAULT_AGENT_ID = '1';
+const DEFAULT_AGENT_ID = 'agent-ben-id';
 
-interface DemoState {
+interface IAppStore {
+  // modal form
   isModalOpen: boolean;
-  selectedAgentId: string | null;
-  isCharacterTalking: boolean;
-  isCtaDialogOpen: boolean;
-  modalContext: 'agentInteraction' | 'tryLive' | null;
-  isTryLiveOn: boolean;
-  isTryLiveModalFirstOpen: boolean;
-}
-
-interface DemoActions {
-  openModal: (context?: 'agentInteraction' | 'tryLive') => void;
+  modalContext: 'redirectToLive' | 'tryLive' | null;
+  openModal: (context?: 'redirectToLive' | 'tryLive') => void;
   closeModal: () => void;
-  setSelectedAgentId: (id: string) => void;
+
+  //  cta-dialog-popup
+  isCtaDialogOpen: boolean;
   openCtaDialog: () => void;
   closeCtaDialog: () => void;
+  // agent ai ..
+  selectedAgentId: string | null;
+  setSelectedAgentId: (id: string) => void;
 
-  //
-  setIsCharacterTalking: (isTalking: boolean) => void;
+  // live demo
+  isTryLiveOn: boolean;
   setIsTryLiveOn: (isOn: boolean) => void;
+
+  tryLiveModalCount: number;
+  setTryLiveModalCount: (count: number) => void;
+
+  isTryLiveModalFirstOpen: boolean;
   setIsTryLiveModalFirstOpen: (isOpen: boolean) => void;
+
+  isAgentTalking: boolean;
+  setIsAgentTalking: (isTalking: boolean) => void;
 }
 
-export const useAppStore = create<DemoState & DemoActions>((set, get) => ({
-  // Initial State
+export const useAppStore = create<IAppStore>((set, get) => ({
+  // modal form
   isModalOpen: false,
-  selectedAgentId: null,
-  isCharacterTalking: false,
-  isTryLiveOn: false,
-  isCtaDialogOpen: false,
   modalContext: null,
-  isTryLiveModalFirstOpen: false,
-
-  // Actions
-  openModal: (context = 'agentInteraction') => {
+  openModal: (context = 'redirectToLive') =>
     set({
       isModalOpen: true,
       selectedAgentId: get().selectedAgentId
         ? get().selectedAgentId
         : DEFAULT_AGENT_ID,
       modalContext: context,
-    });
-  },
-  closeModal: () => {
-    set({ isModalOpen: false, modalContext: null });
-  },
-  setSelectedAgentId: (id) => set({ selectedAgentId: id }),
+    }),
 
+  closeModal: () => set({ isModalOpen: false, modalContext: null }),
+
+  // cta-dialog-popup
+  isCtaDialogOpen: false,
   openCtaDialog: () => set({ isCtaDialogOpen: true }),
   closeCtaDialog: () => set({ isCtaDialogOpen: false }),
 
-  setIsCharacterTalking: (isTalking) => set({ isCharacterTalking: isTalking }),
+  // agent ai
+  selectedAgentId: null,
+  setSelectedAgentId: (id) => set({ selectedAgentId: id }),
+
+  // trylivemodedemo
+  isTryLiveOn: false,
   setIsTryLiveOn: (isOn) => set({ isTryLiveOn: isOn }),
+
+  isTryLiveModalFirstOpen: false,
   setIsTryLiveModalFirstOpen: (isOpen) =>
     set({ isTryLiveModalFirstOpen: isOpen }),
+
+  tryLiveModalCount: 0,
+  setTryLiveModalCount: (count) => set({ tryLiveModalCount: count }),
+
+  // agent talking
+  isAgentTalking: false,
+  setIsAgentTalking: (isTalking) => set({ isAgentTalking: isTalking }),
 }));

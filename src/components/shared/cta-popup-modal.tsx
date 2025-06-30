@@ -2,8 +2,6 @@
 import { cn } from '@/lib/utils';
 import { ClassValue } from 'clsx';
 import Image from 'next/image';
-import { motion } from 'motion/react';
-import * as variants from '@/lib/motion-variants';
 
 import { useAppStore } from '@/store/useAppStore';
 import {
@@ -14,11 +12,8 @@ import {
   DialogDescription,
 } from '../ui/dialog';
 import { useRouter } from 'next/navigation';
-import {
-  MatomoAction,
-  MatomoCategory,
-  trackMatomoEvent,
-} from '@/lib/matomo-utils';
+import { Button } from '../ui/button';
+
 export default function CtaPopUpModal({
   className,
 }: {
@@ -27,15 +22,10 @@ export default function CtaPopUpModal({
   const router = useRouter();
   const { isCtaDialogOpen, closeCtaDialog } = useAppStore();
   const handleModalChange = () => {
-    trackMatomoEvent(MatomoCategory.Modal, MatomoAction.Closed, 'Cta Pop Up');
     closeCtaDialog();
   };
+
   const handleGetStarted = () => {
-    trackMatomoEvent(
-      MatomoCategory.Button,
-      MatomoAction.Clicked,
-      'Get Started For Free Button (CTA Pop Up)',
-    );
     router.push('/sign-up');
   };
 
@@ -48,61 +38,31 @@ export default function CtaPopUpModal({
       <DialogContent
         aria-describedby="modal"
         className={cn(
-          'bg-linear-48 from-[#5cd9ba] to-[#81b5e9] px-10 py-10 sm:min-w-xl md:min-w-2xl',
+          'px-10 py-10 sm:min-w-xl md:min-w-2xl',
+          'bg-clrWoodsmoke/80 border-none backdrop-blur-lg',
           className,
         )}
       >
+        <div className="from-clrAlienGreen to-clrSunnyYellow absolute inset-0 rounded-lg bg-linear-71"></div>
         <div className="relative z-40 container mx-auto size-full">
-          <div className="absolute top-[5%] right-0 left-0 rotate-180">
-            <Image
-              className="size-full object-cover"
-              src="/assets/svg/cta-pattern-large.svg"
-              alt="pattern"
-              width={100}
-              height={100}
-            />
-          </div>
-          <div className="absolute right-0 bottom-0 left-0">
-            <Image
-              className="size-full object-cover"
-              src="/assets/svg/cta-pattern-large.svg"
-              alt="pattern"
-              width={100}
-              height={100}
-            />
-          </div>
-
           <div className="relative z-10 w-full space-y-5">
-            <motion.h1
-              variants={variants.fadeInUp}
-              initial="start"
-              whileInView="end"
-              viewport={{ once: true }}
-              className="font-nunito text-center text-4xl font-bold text-white lg:text-5xl dark:text-[#0b132b]"
-            >
+            <h1 className="font-raleway text-clrTextLight text-center text-4xl font-bold lg:text-5xl">
               Limited Time Offer Get 30 Free Minutes
-            </motion.h1>
-            <motion.p
-              variants={variants.fadeInUp}
-              initial="start"
-              whileInView="end"
-              viewport={{ once: true }}
-              className="font-nunito mx-auto text-center text-lg font-light text-white dark:text-[#0b132b]"
-            >
+            </h1>
+            <p className="font-opensans text-clrTextLight mx-auto text-center text-lg font-light">
               Sign up now to unlock 30 free minutes of our AI recruitment
               software and elevate your hiring experience!
-            </motion.p>
+            </p>
 
-            <motion.button
+            <Button
               onClick={handleGetStarted}
-              variants={variants.buttonVariant}
-              initial="start"
-              whileInView="end"
-              viewport={{ once: true }}
-              className="dark:bg-clrBlackPearl/95 dark:hover:bg-clrBlackPearl font-roboto dark:text-clrText text-clrTextLight mx-auto block cursor-pointer justify-start bg-white px-6 py-3 text-center font-medium hover:bg-white/85"
+              className="bg-clrOnyx hover:bg-clrOnyx/80 mx-auto block h-12 cursor-pointer px-6 py-2 text-white"
+              //   variant="brand"
             >
-              Get Started For Free
-            </motion.button>
+              <span className="font-roboto text-base font-semibold tracking-wide">
+                Get Started For Free
+              </span>
+            </Button>
           </div>
         </div>
       </DialogContent>

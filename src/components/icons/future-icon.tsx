@@ -18,7 +18,7 @@ export default function FutureIcon({
 
   return resolvedTheme === 'dark' ? (
     <svg
-      className={cn('', className)}
+      className={cn('text-[#D8F2F5]', className)}
       width="70"
       height="30"
       viewBox="0 0 70 30"

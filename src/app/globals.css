@@ -2,31 +2,34 @@
 @import 'tw-animate-css';
 @import 'tailwind-scrollbar-hide/v4';
 
-/* custom */
 @theme {
-  /* light */
-  --color-clrAquaHaze: #f3f3f3;
-  --color-clrTextLight: #494e59;
-  --color-clrSeaShell: #f0f0f0;
-  /* dark */
-  --color-clrBlackPearl: #0b132b;
-  --color-clrFirefly: #141d38;
-  --color-clrMirage: #0d1327;
-  --color-clrMidNightDark: #0f1730;
-  --color-clrZeusDark: #1c1d1d;
-  --color-clrText: #f0f0f0;
-  --color-clrTelishBlue: #122037;
-  --color-clrCaribbeanGreen: #00cc99;
-  --color-clrDawnyGreen: #5cd9ba;
-  --color-clrCyanBlue: #3c91e6;
-  --color-clrDenimBlue: #81b5e9;
+  --color-clrPorcelain: #f2eeff;
+  --color-clrSoftPeach: #efefef;
+  --color-clrMercury: #e9e8e8;
+  --color-clrOnyx: #121212;
+  --color-clrCinder: #151418;
+  --color-clrDarkLavender: #654ea3;
 
+  --color-clrTextLight: #333333;
+
+  --color-clrGreyCloud: #b7b7b7;
+  --color-clrZeus: #212121;
+  --color-clrMirage: #1a1820;
+
+  --color-clrSunnyYellow: #f3f520;
+  --color-clrAlienGreen: #59d102;
+  --color-clrCoralRed: #ff3535;
+  --color-clrVisaWhite: #f9f9f9;
+
+  /* fonts */
+  --font-montserrat: var(--font-montserrat);
   --font-roboto: var(--font-roboto);
+  --font-jost: var(--font-jost);
+  --font-opensans: var(--font-opensans);
   --font-nunito: var(--font-nunito);
-
-  --breakpoint-xs: 475px;
+  /* screen */
+  --screen-xs: 475px;
 }
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -140,9 +143,90 @@
 
 @layer base {
   /* * {
-    @apply border-border outline-ring/50;
-  } */
-  body {
-    @apply font-roboto size-full scroll-smooth;
+        @apply border-border outline-ring/50;
+    } */
+  /* body {
+        @apply bg-background text-foreground;
+    } */
+  html {
+    @apply !scroll-smooth;
   }
+  body {
+    @apply font-roboto text-clrTextLight dark:text-clrPorcelain dark:bg-clrOnyx bg-white;
+  }
+}
+
+@layer utilities {
+  @keyframes scroll-gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-scroll-gradient {
+    animation: scroll-gradient 2s linear infinite;
+    background-size: 200% 100%;
+  }
+
+  @keyframes rotateConic {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .rotating-gradient {
+    animation: rotateConic 10s linear infinite;
+    transform-origin: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .rotate-slow {
+    animation: spin 8s linear infinite;
+  }
+
+  .rotate-fast {
+    animation: spin 2s linear infinite;
+  }
+
+  .rotate-medium {
+    animation: spin 4s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /*  */
+
+  .border-gradient-rotate {
+    background: conic-gradient(var(--gradient-stops));
+    animation: border-spin 6s linear infinite;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+  }
+
+  @keyframes border-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+html {
+  scrollbar-gutter: stable;
 }
