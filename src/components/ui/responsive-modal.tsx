@@ -66,18 +66,28 @@ const ResponsiveModalContent = React.forwardRef<
 >(({ side = 'bottom', className, children, ...props }, ref) => (
   <ResponsiveModalPortal>
     <ResponsiveModalOverlay />
-    <DialogPrimitive.Content
-      ref={ref}
-      className={cn(ResponsiveModalVariants({ side }), className)}
-      {...props}
-    >
-      {children}
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <DialogPrimitive.Content
+        ref={ref}
+        className={cn(
+          ResponsiveModalVariants({ side }),
+          'dark:bg-clrWoodsmoke h-full max-h-[calc(100vh-30px)] overflow-hidden bg-white xl:min-w-[500px]',
+          className,
+        )}
+        {...props}
+      >
+        <div className="dark:bg-clrWoodsmoke absolute inset-x-0 top-0 z-[999] h-[40px] bg-white"></div>
+        <div className="scrollbar-hide max-h-[calc(100vh-60px)] overflow-y-auto scroll-smooth px-3 py-10 pt-5">
+          {children}
+        </div>
+        <div className="dark:bg-clrWoodsmoke absolute inset-x-0 bottom-0 z-[999] h-[40px] bg-white"></div>
 
-      {/* <ResponsiveModalClose className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none">
+        {/* <ResponsiveModalClose className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none">
         <X className="size-4" />
         <span className="sr-only">Close</span>
       </ResponsiveModalClose> */}
-    </DialogPrimitive.Content>
+      </DialogPrimitive.Content>
+    </div>
   </ResponsiveModalPortal>
 ));
 ResponsiveModalContent.displayName = DialogPrimitive.Content.displayName;
