@@ -121,7 +121,7 @@ export default function AuthForm({
   }
 
   return (
-    <div className={cn('pt-8', className)}>
+    <div className={cn('w-full pt-8', className)}>
       <div className="relative">
         <div
           onClick={() => {
