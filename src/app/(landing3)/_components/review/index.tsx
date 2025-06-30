@@ -82,7 +82,7 @@ function ReviewContent() {
       >
         <Image
           className="size-full object-contain"
-          src={'/assets/img/review-m.png'}
+          src={'/assets/img/review-m.jpg'}
           width={480}
           height={480}
           alt="review-image"
@@ -99,7 +99,7 @@ function ReviewContent() {
       >
         <Image
           className="size-full object-contain"
-          src={'/assets/img/review-l.png'}
+          src={'/assets/img/review-l.jpg'}
           width={480}
           height={480}
           alt="review-image"
@@ -116,7 +116,7 @@ function ReviewContent() {
       >
         <Image
           className="size-full object-contain"
-          src={'/assets/img/review-ru.png'}
+          src={'/assets/img/review-ru.jpg'}
           width={480}
           height={480}
           alt="review-image"

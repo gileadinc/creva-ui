@@ -37,7 +37,7 @@ export default function PostJob({ className }: { className?: string }) {
 
   const cards = [
     {
-      imageSrc: '/assets/img/post-job-1.png',
+      imageSrc: '/assets/img/post-job-1.jpg',
       labels: [
         {
           text: 'Company Overview',
@@ -52,7 +52,7 @@ export default function PostJob({ className }: { className?: string }) {
       ],
     },
     {
-      imageSrc: '/assets/img/post-job-2.png',
+      imageSrc: '/assets/img/post-job-2.jpg',
       labels: [
         {
           text: 'Phone Call Screening',
@@ -73,7 +73,7 @@ export default function PostJob({ className }: { className?: string }) {
       ],
     },
     {
-      imageSrc: '/assets/img/post-job-3.png',
+      imageSrc: '/assets/img/post-job-3.jpg',
       labels: [
         {
           text: 'Hustle Free Hiring',
