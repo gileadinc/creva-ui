@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/providers/theme-provider';
 import ReactLenisProvider from '@/components/react-lenis';
 import ToasterProvider from '@/providers/toaster-provider';
 import ReactQueryProvider from '@/providers/react-query-provider';
+import Matomo from '@/components/matomo-analytics';
 export const metadata: Metadata = {
   title: 'Creva',
   description: 'Your AI-powered assistant for Hiring Managers',
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png',
   },
-  manifest: '/site.webmanifest',
+  // manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
@@ -39,6 +40,7 @@ export default function RootLayout({
           <ToasterProvider />
           <ReactLenisProvider />
         </ThemeProvider>
+        <Matomo />
       </body>
     </html>
   );

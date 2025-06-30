@@ -168,13 +168,14 @@ function AIAgentCard({
     console.log(`Speak live with ${name} (ID: ${id})`);
     setSelectedAgentId(id);
 
-    if (tryLiveModalCount < 1) {
-      openModal('tryLive');
-      setTryLiveModalCount(tryLiveModalCount + 1);
-      // setIsTryLiveModalFirstOpen(true);
-    } else {
-      setIsTryLiveOn(true);
-    }
+    openModal('tryLive');
+    // if (tryLiveModalCount < 1) {
+    //   openModal('tryLive');
+    //   setTryLiveModalCount(tryLiveModalCount + 1);
+    //   // setIsTryLiveModalFirstOpen(true);
+    // } else {
+    //   setIsTryLiveOn(true);
+    // }
   };
   return (
     <div

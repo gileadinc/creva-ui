@@ -28,16 +28,16 @@ export default function WorkFlow({
         <SectionLabel className="" text={subtitle} />
         <SectionTitle text={title} />
         <SectionDescription text={description} />
-        <div className="relative mt-10 flex w-full md:mt-0 md:justify-end">
+        <div className="relative mt-10 size-full w-[90%] md:mt-20">
           <Image
-            className="block dark:hidden"
+            className="block size-full object-cover dark:hidden"
             src={imgSrcLight}
             alt="workflow-image"
             width={600}
             height={600}
           />
           <Image
-            className="hidden dark:block"
+            className="hidden size-full object-cover dark:block"
             src={imgSrcDark}
             alt="workflow-image"
             width={600}

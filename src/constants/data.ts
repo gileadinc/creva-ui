@@ -61,8 +61,8 @@ export const workflowSectionData: IWorkflowSection = {
   title: 'Creating Efficient Workflows to Enhance Your AI Recruitment Process',
   description:
     'Our AI assists you in designing a personalized workflow, enabling automated decision-making based on candidate screening results.',
-  imgSrcDark: '/assets/img/workflow-dark.png',
-  imgSrcLight: '/assets/img/workflow-light.png',
+  imgSrcDark: '/assets/img/workflowl-dark.png',
+  imgSrcLight: '/assets/img/workflowl-light.png',
 };
 
 export type IAgent = {

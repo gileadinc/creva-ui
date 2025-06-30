@@ -4,7 +4,7 @@ import { ClassValue } from 'clsx';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { Loader, Mic, Phone } from 'lucide-react';
+import { Loader, Mic, Phone, X } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -26,6 +26,7 @@ import Image from 'next/image';
 import { useAppStore } from '@/store/useAppStore';
 import {
   ResponsiveModal,
+  ResponsiveModalClose,
   ResponsiveModalContent,
   ResponsiveModalDescription,
   ResponsiveModalHeader,
@@ -193,6 +194,8 @@ export default function ModalForm({
         aria-describedby="modal"
         className={cn(
           'dark:bg-clrWoodsmoke scrollbar-hide h-full max-h-[calc(100dvh-2%)] bg-white lg:max-h-[calc(100vh-5%)] xl:min-w-[500px]',
+          // 'dark:bg-clrWoodsmoke scrollbar-hide max-h-[calc(100dvh-2%)] lg:max-h-[calc(100vh-5%)] xl:min-w-[500px]',
+
           className,
         )}
       >
@@ -202,11 +205,18 @@ export default function ModalForm({
             Try AI Modal Description
           </ResponsiveModalDescription>
         </ResponsiveModalHeader>
+
         <div className="h-full">
           <div className="dark:text-clrTextLight text-clrTextDark">
-            <h3 className="font-raleway py-2 text-[24px] font-extrabold">
-              Experience Our AI Agents
-            </h3>
+            <div className="flex items-center justify-between">
+              <h3 className="font-raleway py-2 text-[24px] font-extrabold">
+                Experience Our AI Agents
+              </h3>
+              <ResponsiveModalClose className="cursor-pointer">
+                <X className="size-8" />
+                <span className="sr-only">Close</span>
+              </ResponsiveModalClose>
+            </div>
             <hr className="text-clrBrand" />
             <p className="font-opensans my-3 mb-4 text-[12px] leading-[18px] tracking-wide lg:text-base lg:leading-[24px] dark:font-light">
               Fill out the form below to experience our AI recruitment services.
@@ -374,13 +384,22 @@ export default function ModalForm({
                               value: 'friend-family',
                               label: 'Friend or Family',
                             },
-                            { value: 'advertisement', label: 'Advertisement' },
-                            { value: 'blog-article', label: 'Blog or Article' },
+                            {
+                              value: 'advertisement',
+                              label: 'Advertisement',
+                            },
+                            {
+                              value: 'blog-article',
+                              label: 'Blog or Article',
+                            },
                             { value: 'youtube', label: 'YouTube' },
                             { value: 'podcast', label: 'Podcast' },
                             { value: 'email', label: 'Email Newsletter' },
                             { value: 'event', label: 'Event or Conference' },
-                            { value: 'partner', label: 'Partner or Referral' },
+                            {
+                              value: 'partner',
+                              label: 'Partner or Referral',
+                            },
                             { value: 'app-store', label: 'App Store' },
                             { value: 'linkedin', label: 'LinkedIn' },
                             { value: 'facebook', label: 'Facebook' },
@@ -391,7 +410,10 @@ export default function ModalForm({
                             { value: 'online-forum', label: 'Online Forum' },
                             { value: 'tv-radio', label: 'TV or Radio' },
                             { value: 'print-media', label: 'Print Media' },
-                            { value: 'word-of-mouth', label: 'Word of Mouth' },
+                            {
+                              value: 'word-of-mouth',
+                              label: 'Word of Mouth',
+                            },
                             { value: 'other', label: 'Other' },
                           ].map((item) => (
                             <SelectItem

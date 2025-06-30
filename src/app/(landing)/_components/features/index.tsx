@@ -127,7 +127,8 @@ function FeatureCardImg1() {
     <div
       className={cn(
         'absolute right-[-20px]',
-        'max-md:bottom-0 max-md:h-48 max-sm:inset-x-6 md:h-96 md:w-[680px] md:origin-top-left md:rotate-[-8deg]',
+        // 'max-md:bottom-0 max-md:h-48 max-sm:inset-x-6 md:h-96 md:w-[680px] md:origin-top-left md:rotate-[-8deg]',
+        'max-md:bottom-0 max-md:h-48 max-sm:inset-x-6 md:-bottom-8 md:h-68 md:w-[480px]',
       )}
     >
       <Image
