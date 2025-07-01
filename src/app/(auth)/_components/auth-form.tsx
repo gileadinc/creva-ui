@@ -404,12 +404,12 @@ export default function AuthForm({
                 name="emailOrPhoneNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-nunito text-sm font-medium">
+                    <FormLabel className="font-raleway text-sm font-medium">
                       Email or Phone Number
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="font-nunito border-clrTextLight h-10 rounded-sm text-sm"
+                        className="font-raleway border-clrTextLight h-10 rounded-sm text-sm"
                         placeholder="Email or Phone Number"
                         {...field}
                       />
