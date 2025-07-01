@@ -112,7 +112,7 @@ function AgentsCard({
 
   return (
     <div className="dark:bg-clrBlackPearl dark:text-clrText text-clrTextLight font-nunito relative w-full rounded-md bg-white p-4 text-center">
-      <div className="relative rounded-full p-2">
+      {/* <div className="relative rounded-full p-2">
         <Image
           loading="lazy"
           className={cn('mx-auto size-[200px] rounded-full md:size-[240px]')}
@@ -127,6 +127,29 @@ function AgentsCard({
               'dark:ring-clrCaribbeanGreen/60 dark:bg-clrCaribbeanGreen/30 ring-clrCaribbeanGreen/70 absolute inset-0 animate-pulse rounded-full bg-black/20 ring-4',
           )}
         ></div>
+      </div> */}
+
+      <div className="relative rounded-full p-2">
+        {/* Glowing Ring (background layer) */}
+        {isPlaying && (
+          <div
+            className={cn(
+              'absolute inset-0 z-0 animate-pulse rounded-full ring-4',
+              'bg-black/20 ring-4 ring-black/25 dark:bg-[#e9e9e9]/20 dark:ring-[#e9e9e9]/25',
+              // 'ring-[#e9e9e9]/40 dark:bg-clrBrand/20 dark:ring-clrBrand/25 bg-black/10 ring-4',
+            )}
+          />
+        )}
+
+        {/* Image (foreground layer) */}
+        <Image
+          className="relative z-10 size-[200px] rounded-full object-contain md:size-[240px]"
+          src={img}
+          loading="lazy"
+          alt={name}
+          width={400}
+          height={400}
+        />
       </div>
       <h3 className="mt-1 text-xl font-semibold">{name}</h3>
       <p className="text-lg font-light dark:opacity-60">{country}</p>
